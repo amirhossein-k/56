@@ -1,0 +1,40 @@
+.new{
+    width:100%;
+    display:flex;
+    .top{
+           padding: 14px 0 0 23px;
+    }
+    .imgproduct{
+        width:20%;
+        transform: translateX(200%);
+    }
+    .bottom-new{
+           -webkit-box-shadow: -4px 3px 9px -9px #000000, 2px -5px 9px -9px #000000;
+            box-shadow: -4px 3px 9px -9px #000000, 2px -5px 9px -9px #000000; 
+            padding:20px;
+            margin:20px;
+            
+            .formfix{
+               width: 100%;
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                /* min-width: 100vh; */
+                flex-direction: column;
+            }
+            .form-1{
+                display: flex;
+                width: 100%;
+                gap: 10px;
+                }
+    }
+    .button-new{
+        .create-new{
+            background-color: darkblue;
+            &:hover{
+                background-color:blue;
+            }
+        }
+    }
+    
+}

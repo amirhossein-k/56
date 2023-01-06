@@ -1,0 +1,39 @@
+.container {
+  box-shadow: 1px 1px 5px 1px rgba(134, 129, 129, 0.5);
+}
+
+.button {
+  border: 0.8px solid black;
+  outline: none;
+  padding: 15px 70px;
+  text-align: center;
+  box-shadow: 0 0 0 0.2px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  background-color: black;
+  color: #fff;
+  max-width: 100%;
+}
+
+.button:hover {
+  color: black;
+  background-color: #fff;
+}
+.justify {
+  justify-content: center !important;
+  align-items: center !important;
+  justify-items: center;
+  justify-self: center;
+  display: flex !important;
+}
+
+@media screen and (min-width: 996px) and (max-width: 1247px) {
+  .coll {
+    flex: 0 0 6% !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .button {
+    padding: 15px 85px;
+  }
+}

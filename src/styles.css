@@ -1,0 +1,304 @@
+:root {
+  /* --bs-gutter-x: 0 !important; */
+}
+html {
+  font-size: 100%;
+}
+body {
+  /* font-size: 15px; */
+  /* font-size: 0.9375rem; */
+  font-family: "Open sans", Helvetica, Arial, sans-serif;
+  color: #666666;
+}
+
+/*********************************************************************
+
+
+                            Navigation in header
+
+
+**********************************************************************/
+/* .container-fluid {
+  --bs-gutter-x: 0 !important;
+} */
+/* .navbar {
+  padding-left: 20px;
+  padding-right: 20px;
+  z-index: 10000;
+} */
+/* .navbar.stick {
+  position: sticky;
+  top: 0;
+  left: 0;
+  opacity: 0.85;
+} */
+
+/* .sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+} */
+/* .navbar-collapse {
+  -webkit-border-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 0;
+  -moz-background-clip: padding;
+  border-radius: 0;
+  background-clip: padding-box;
+  font-family: "Open sans", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+} */
+/* .navbar-collapse .navbar-nav {
+  float: none;
+  margin: 0 auto;
+  text-align: center;
+}
+.navbar-collapse .navbar-nav > li {
+  float: none;
+  display: inline-block;
+}
+.navbar-collapse .navbar-nav > li > a {
+  padding: 20px 30px;
+}
+.dropdown ul.dropdown-menu {
+  top: 85%;
+  text-align: left;
+}
+.dropdown ul.dropdown-menu > li > a {
+  padding: 5px 30px;
+}
+.navbar-default {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #454545;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #000000;
+  background-color: #ffffff;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #000000;
+  background-color: #ffffff;
+}
+.navbar-default .dropdown ul.dropdown-menu > li > a {
+  color: #454545;
+}
+.navbar-default .dropdown ul.dropdown-menu > li > a:hover {
+  background-color: #eeeeee;
+  color: #000000;
+}
+.navbar-default .navbar-toggle {
+  border-color: #666666;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #ffffff;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #333333;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #cccccc;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background-color: #ffffff;
+  color: #000000;
+} */
+/****************************************************************************************
+
+
+                                     Sidebar special Nav
+
+
+*****************************************************************************************/
+
+/*********************************************************************
+
+
+                                TYPOGRAPHY
+
+
+**********************************************************************/
+/* p {
+  line-height: 1.6em;
+  margin: 0 0 30px 0;
+}
+ul,
+ol {
+  line-height: 1.6em;
+  margin: 0 0 30px 0;
+}
+blockquote {
+  padding: 10px 20px;
+  margin: 0 0 30px;
+  border-left: 5px solid #eee;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: "Open sans", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  color: #333333;
+}
+h1 {
+  font-size: 40px;
+  font-size: 2.5rem;
+}
+h2 {
+  font-size: 36px;
+  font-size: 2.25rem;
+}
+h3 {
+  font-size: 30px;
+  font-size: 1.875rem;
+}
+h4 {
+  font-size: 24px;
+  font-size: 1.5rem;
+}
+h5 {
+  font-size: 20px;
+  font-size: 1.25rem;
+}
+a {
+  color: #bd1550;
+}
+a:hover {
+  color: #e93675;
+}
+.lead {
+  font-weight: 300;
+  font-size: 21px;
+  font-size: 1.3125rem;
+}
+.text-msg {
+  line-height: 1.7em;
+  color: #b3b3b3;
+  font-weight: 300;
+  text-transform: capitalize;
+  margin-top: -0.23em;
+}
+.size-auto,
+.size-full,
+.size-large,
+.size-medium,
+.size-thumbnail {
+  max-width: 100%;
+  height: auto;
+} */
+/*********************************************************************
+
+
+                                HEADER
+
+
+**********************************************************************/
+/* #head {
+  background: #f4f4f4
+    url(https://res.cloudinary.com/dijamrzud/image/upload/v1670333546/pexels-cesar-perez-733745_saw8qp.jpg);
+
+
+  min-height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  color: #7c7c7c;
+  padding: 30px 0 35px 0;
+}
+#head img.img-circle {
+  display: block;
+  width: 140px;
+  height: 140px;
+  overflow: hidden;
+  border: 9px solid rgba(133, 131, 131, 0.357);
+  -moz-outline-radius: 5px;
+  margin-bottom: 50px;
+  border-radius: 50%;
+} */
+/* .back-fade {
+  background: #adb5bda3;
+  border-radius: 5px;
+  padding: 5px;
+}
+#head .back-fade .title {
+  font-family: Alice, Georgia, serif;
+  font-size: 49px;
+  font-size: 3.0625rem;
+  margin-bottom: 20px;
+  color: #121111 !important;
+}
+#head .back-fade .title a {
+  text-decoration: none !important;
+  color: #121111 !important;
+} */
+/* #head .tagline {
+  display: block;
+  font-size: 18px;
+
+  line-height: 1.8em;
+  color: #ffffff;
+  margin: 5px 0 0;
+} */
+/* #head .tagline b {
+  font-weight: normal;
+}
+#head .tagline a {
+  color: #c7c7c7;
+  text-decoration: none !important;
+  padding-left: 10px;
+} */
+/* #head .tagline a:hover {
+  color: #000000;
+} */
+/* .home #head {
+  padding: 90px 0;
+} */
+/* .home #head .back-fade .title {
+  font-size: 49px;
+  font-size: 3.0625rem;
+} */
+/* .home #head .tagline {
+  font-size: 16px;
+  font-size: 1rem;
+  margin: 15px 0 0;
+} */
+/* .home {
+  min-height: 1000px;
+  background-color: #ccc;
+} */
+
+/*********************************************************************
+
+
+                                CONTENT
+
+
+**********************************************************************/
+
+/*********************************************************************
+
+
+                                COMMENTS
+
+
+**********************************************************************/

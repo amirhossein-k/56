@@ -1,0 +1,10 @@
+.inputstyle {
+  border: 0.8px solid black;
+  outline: none;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 0 0 0.2px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  max-width: 90%;
+  display: block;
+}
