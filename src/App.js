@@ -27,10 +27,10 @@ export default function App() {
       style={{ paddingLeft: 0, paddingRight: 0 }}
       className="gx-0"
     >
-      {/* <Header /> */}
+      {/* <Header />  */}
       <Routes>
         <Route path="/" element={<Home userInfo={userInfo} />} />
-        <Route path="/login" element={<Login/>}/>
+        <Route path="/login" element={<Login />} />
         <Route element={<ProtectedRoute userInfo={userInfo} />}>
           <Route path="/dashboard">
             <Route index element={<HomeDashboard />} />
