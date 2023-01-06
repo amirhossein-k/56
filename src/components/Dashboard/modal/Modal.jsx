@@ -30,6 +30,11 @@ const Modal = ({
   setPic,
   setStatus,
   setPrice,
+  isform,
+  urlpic,
+  setUrlpic,
+  setOpenpic,
+  openpic,
 }) => {
   ////////////////////////
   let navigate = useNavigate();
@@ -96,127 +101,137 @@ const Modal = ({
     resetHandler();
     navigate("/dashboard");
   };
-
+  const handleclose = () => {
+    // setIsOpen(false);
+    setOpenpic(false);
+  };
   useEffect(() => {}, []);
   return (
     <>
-      <div className={styles.darkBG} onClick={() => setIsOpen(false)} />
+      <div className={styles.darkBG} onClick={() => handleclose()} />
       <div className={styles.centered}>
         <div className={styles.modal}>
           {/* <div className={styles.modalHeader}>
             <h5 className={styles.heading}>Dialog</h5>
           </div> */}
-          <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>
+          <button className={styles.closeBtn} onClick={() => handleclose()}>
             <RiCloseLine style={{ marginBottom: "-3px" }} />
           </button>
-          <div className={styles.modalContent}>
-            <div className="top">
-              <h1>Add New Product</h1>
-            </div>
-            {/* ///// end top ////// */}
-            <div className="bottom-new">
-              {/* <img src={pic} className="imgproduct" /> */}
-              <img src={pic ? pic : null} className={styles.imgproduct} />
-              <Form className={styles.formfix} onSubmit={submitHandler}>
-                <div className="form-0">
-                  <Form.Group controlId="pic">
-                    <Form.Label>Profile Picture</Form.Label>
-                    <Form.Control
-                      type="file"
-                      // onChange={(e) => setPics(e.target.files[0])}
-                      onChange={(e) => postDetails(e.target.files[0])}
-                      ref={fileInput}
-                    />
-                  </Form.Group>
-                </div>
-                <div className={styles.form_1}>
-                  {/* //// */}
-                  <Form.Group
-                    controlId="titlecar"
-                    style={{ width: "90%", marginRight: 6 }}
-                  >
-                    <Form.Label>نام خودرو</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={namecar}
-                      placeholder="نام خودرو"
-                      onChange={(e) => setNameCar(e.target.value)}
-                    />
-                  </Form.Group>
-                  {/* //// */}
-                  <Form.Group
-                    controlId="factory"
-                    style={{ width: "90%", marginRight: 6 }}
-                  >
-                    <Form.Label>نام خودرو</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={factory}
-                      placeholder="نام کارخانه"
-                      onChange={(e) => setFactory(e.target.value)}
-                    />
-                  </Form.Group>
-                  {/* //// */}
-                  <Form.Group controlId="distance" style={{ width: "90%" }}>
-                    <Form.Label>نام خودرو</Form.Label>
-                    <Form.Control
-                      type="number"
-                      value={distance}
-                      placeholder="کارکرد"
-                      onChange={(e) => setDistance(e.target.value)}
-                    />
-                  </Form.Group>
-                  {/* //// */}
-                </div>
-                <div className="form-2">
-                  {/* //// */}
-                  {/* <Form.Group controlId="formControlsTextarea">
+          {isform && (
+            <div className={styles.modalContent}>
+              <div className="top">
+                <h1>Add New Product</h1>
+              </div>
+              {/* ///// end top ////// */}
+              <div className="bottom-new">
+                {/* <img src={pic} className="imgproduct" /> */}
+                <img src={pic ? pic : null} className={styles.imgproduct} />
+                <Form className={styles.formfix} onSubmit={submitHandler}>
+                  <div className="form-0">
+                    <Form.Group controlId="pic">
+                      <Form.Label>Profile Picture</Form.Label>
+                      <Form.Control
+                        type="file"
+                        // onChange={(e) => setPics(e.target.files[0])}
+                        onChange={(e) => postDetails(e.target.files[0])}
+                        ref={fileInput}
+                      />
+                    </Form.Group>
+                  </div>
+                  <div className={styles.form_1}>
+                    {/* //// */}
+                    <Form.Group
+                      controlId="titlecar"
+                      style={{ width: "90%", marginRight: 6 }}
+                    >
+                      <Form.Label>نام خودرو</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={namecar}
+                        placeholder="نام خودرو"
+                        onChange={(e) => setNameCar(e.target.value)}
+                      />
+                    </Form.Group>
+                    {/* //// */}
+                    <Form.Group
+                      controlId="factory"
+                      style={{ width: "90%", marginRight: 6 }}
+                    >
+                      <Form.Label>نام خودرو</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={factory}
+                        placeholder="نام کارخانه"
+                        onChange={(e) => setFactory(e.target.value)}
+                      />
+                    </Form.Group>
+                    {/* //// */}
+                    <Form.Group controlId="distance" style={{ width: "90%" }}>
+                      <Form.Label>نام خودرو</Form.Label>
+                      <Form.Control
+                        type="number"
+                        value={distance}
+                        placeholder="کارکرد"
+                        onChange={(e) => setDistance(e.target.value)}
+                      />
+                    </Form.Group>
+                    {/* //// */}
+                  </div>
+                  <div className="form-2">
+                    {/* //// */}
+                    {/* <Form.Group controlId="formControlsTextarea">
               <Form.Label>نام خودرو</Form.Label>
               <Form.Control componentClass="textarea" value={propertys}
                 placeholder="ویژگی"
                 onChange={e=> setPropertys(e.target.value)} />
             </Form.Group> */}
-                  {/* //// */}
-                  <TagsInput
-                    value={skills}
-                    onChange={setSkills}
-                    name="fruits"
-                    placeHolder="ویژگی"
-                  />
-                  {/* //////statsu///// */}
-                  <FormControls sx={{ m: 1, minWidth: 120 }} size="small">
-                    <InputLabel id="demo-select-small">وضعیت</InputLabel>
-                    <Select
-                      labelId="demo-select-small"
-                      id="demo-select-small"
-                      value={status}
-                      label="وضعیت"
-                      onChange={(e) => setStatus(e.target.value)}
+                    {/* //// */}
+                    <TagsInput
+                      value={skills}
+                      onChange={setSkills}
+                      name="fruits"
+                      placeHolder="ویژگی"
+                    />
+                    {/* //////statsu///// */}
+                    <FormControls sx={{ m: 1, minWidth: 120 }} size="small">
+                      <InputLabel id="demo-select-small">وضعیت</InputLabel>
+                      <Select
+                        labelId="demo-select-small"
+                        id="demo-select-small"
+                        value={status}
+                        label="وضعیت"
+                        onChange={(e) => setStatus(e.target.value)}
+                      >
+                        <MenuItem value={"موجود"}>موجود</MenuItem>
+                        <MenuItem value={"ناموجود"}>ناموجود</MenuItem>
+                      </Select>
+                    </FormControls>
+                  </div>
+                  <div className="button-new">
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      className="create-new"
                     >
-                      <MenuItem value={"موجود"}>موجود</MenuItem>
-                      <MenuItem value={"ناموجود"}>ناموجود</MenuItem>
-                    </Select>
-                  </FormControls>
-                </div>
-                <div className="button-new">
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    className="create-new"
-                  >
-                    Create Note
-                  </Button>
-                  <Button
-                    className="mx-2"
-                    onClick={resetHandler}
-                    variant="danger"
-                  >
-                    Reset Feilds
-                  </Button>
-                </div>
-              </Form>
+                      Create Note
+                    </Button>
+                    <Button
+                      className="mx-2"
+                      onClick={resetHandler}
+                      variant="danger"
+                    >
+                      Reset Feilds
+                    </Button>
+                  </div>
+                </Form>
+              </div>
             </div>
-          </div>
+          )}
+          {openpic && (
+            <div className={styles.modalContent}>
+              <img src={urlpic} style={{ width: 200 }} />
+            </div>
+          )}
           {/* <div className={styles.modalActions}>
             <div className={styles.actionsContainer}>
               <button
