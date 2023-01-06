@@ -1,0 +1,25 @@
+.chart{
+    // flex:4;
+      -webkit-box-shadow: -4px 3px 9px -9px #000000, 2px -5px 9px -9px #000000;
+    box-shadow: -4px 3px 9px -9px #000000, 2px -5px 9px -9px #000000;
+    padding:10px;
+      margin: 0 20px;
+    color:gray;
+    height:100%;
+  
+    .title{
+        margin-bottom:5px;
+    }
+    .recharts-responsive-container{
+    //         height: 100%;
+    // display: flex;
+    // justify-content: center;
+    // align-content: center;
+    // align-items: center;
+
+    // min-height: 100%;
+    // width: 100%;
+        display: grid;
+    place-content: center;
+    }
+}
