@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   listProductAction,
   deleteProductAction,
-  updateProductAction
+  updateProductAction,
 } from "../../../actions/productActions";
 import axios from "axios";
 import { Col, Row } from "react-bootstrap";
@@ -15,14 +15,14 @@ import {
   GridValueGetterParams,
   GridActionsCellItem,
   GridRowId,
-  GridColumns
+  GridColumns,
 } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SyncIcon from "@mui/icons-material/Sync";
 import Modal from "../modal/Modal";
 // ......................................................
-
+import ModalImage from "react-modal-image";
 //.......................................................
 
 const Datatable = () => {
@@ -43,20 +43,20 @@ const Datatable = () => {
       field: "namecar",
       headerName: "خودرو",
       width: 150,
-      editable: true
+      editable: true,
     },
     {
       field: "factory",
       headerName: "کارخانه",
       width: 150,
-      editable: true
+      editable: true,
     },
 
     {
       field: "distance",
       headerName: "کارکرد",
       width: 150,
-      editable: true
+      editable: true,
     },
 
     {
@@ -64,25 +64,31 @@ const Datatable = () => {
       headerName: "عکس",
       width: 150,
       editable: true,
-      renderCell: (params) => <img src={params.value} className="img-table " />
+      renderCell: (params) => (
+        <img
+          src={params.value}
+          className="img-table "
+          onClick={(e) => setUrlpic(e.target.currentSrc)}
+        />
+      ),
     },
     {
       field: "price",
       headerName: "قیمت",
       width: 150,
-      editable: true
+      editable: true,
     },
     {
       field: "status",
       headerName: "وضعیت",
       width: 150,
-      editable: true
+      editable: true,
     },
     {
       field: "skills",
       headerName: "ویژگی",
       width: 150,
-      editable: true
+      editable: true,
     },
     {
       field: "actions",
@@ -100,9 +106,9 @@ const Datatable = () => {
           label="Toggle Admin"
           onClick={openhandle(params.id)}
           showInMenu
-        />
-      ]
-    }
+        />,
+      ],
+    },
   ];
   const dispatch = useDispatch();
 
@@ -113,11 +119,12 @@ const Datatable = () => {
   const {
     success: successDelete,
     loading: loadingDelete,
-    error: errorDelete
+    error: errorDelete,
   } = productDelete;
   ////////////
   const [isOpen, setIsOpen] = useState(false);
   const [isid, setIsId] = useState("");
+  const [urlpic, setUrlpic] = useState("");
   /////////////////
   const [pr, setPer] = useState([]);
   useEffect(() => {
@@ -125,8 +132,18 @@ const Datatable = () => {
     if (product) {
       console.log("amad");
       setPer(product);
+      console.log(isid);
+      var result = product.find(({ id }) => id == id);
+      setNameCar(result.namecar);
+
+      setFactory(result.factory);
+      setDistance(result.distance);
+      setSkills(result.skills);
+      setPic(result.pic);
+      setStatus(result.status);
+      setPrice(result.price);
     }
-  }, [dispatch, successDelete]);
+  }, [dispatch, successDelete, isid]);
   ////////////
   const [namecar, setNameCar] = useState("");
   const [factory, setFactory] = useState("");
@@ -147,15 +164,6 @@ const Datatable = () => {
       setTimeout(() => {
         setIsOpen(true);
         setIsId(id);
-        const result = product.find(({ id }) => id === id);
-        setNameCar(result.namecar);
-        console.log(namecar);
-        setFactory(result.factory);
-        setDistance(result.distance);
-        setSkills(result.skills);
-        setPic(result.pic);
-        setStatus(result.status);
-        setPrice(result.price);
       });
     },
     []
@@ -210,10 +218,9 @@ const Datatable = () => {
           setPrice={setPrice}
         />
       )}
+      {urlpic && <ModalImage small={urlpic}  u    HellotWorld!" />
+      )}
     </>
-    // <>
-    //   <button onClick={() => setIsOpen(true)}>Open Modal</button>
-    // </>
   );
 };
 

@@ -29,7 +29,7 @@ const Modal = ({
   setSkills,
   setPic,
   setStatus,
-  setPrice
+  setPrice,
 }) => {
   ////////////////////////
   let navigate = useNavigate();
@@ -56,7 +56,7 @@ const Modal = ({
       /////
       fetch("https://api.cloudinary.com/v1_1/dijamrzud/image/upload", {
         method: "post",
-        body: data
+        body: data,
       })
         .then((res) => res.json())
         .then((data) => {
@@ -83,6 +83,7 @@ const Modal = ({
     if (!namecar || !factory || !distance || !skills) return;
     dispatch(
       updateProductAction(
+        isid,
         namecar,
         factory,
         distance,
@@ -96,6 +97,7 @@ const Modal = ({
     navigate("/dashboard");
   };
 
+  useEffect(() => {}, []);
   return (
     <>
       <div className={styles.darkBG} onClick={() => setIsOpen(false)} />
@@ -191,8 +193,8 @@ const Modal = ({
                       label="وضعیت"
                       onChange={(e) => setStatus(e.target.value)}
                     >
-                      <MenuItem value={"approved"}>موجود</MenuItem>
-                      <MenuItem value={"sold"}>ناموجود</MenuItem>
+                      <MenuItem value={"موجود"}>موجود</MenuItem>
+                      <MenuItem value={"ناموجود"}>ناموجود</MenuItem>
                     </Select>
                   </FormControls>
                 </div>
