@@ -68,7 +68,7 @@ const Datatable = () => {
         <img
           src={params.value}
           className="img-table "
-          onClick={(e) => setUrlpic(e.target.currentSrc)}
+          onClick={(e) => habdlepic(e)}
         />
       ),
     },
@@ -110,6 +110,10 @@ const Datatable = () => {
       ],
     },
   ];
+  const habdlepic = (e) => {
+    setUrlpic(e.target.currentSrc);
+    setOpenpic(true);
+  };
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
@@ -125,6 +129,7 @@ const Datatable = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isid, setIsId] = useState("");
   const [urlpic, setUrlpic] = useState("");
+  const [openpic, setOpenpic] = useState("");
   /////////////////
   const [pr, setPer] = useState([]);
   useEffect(() => {
@@ -218,7 +223,13 @@ const Datatable = () => {
           setPrice={setPrice}
         />
       )}
-      {urlpic && <ModalImage small={urlpic}  u    HellotWorld!" />
+      {openpic && (
+        <Modal
+          urlpic={urlpic}
+          setUrlpic={setUrlpic}
+          openpic={openpic}
+          setOpenpic={setOpenpic}
+        />
       )}
     </>
   );
