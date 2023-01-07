@@ -1,15 +1,13 @@
 .col-datatable{
     height:40px;
 }
+
 .img-table{
     width:100vh;
     height: 100%;
     // object-fit:;
     max-width: 100%;
-    &:hover{
-        position:absolute;
-        width:200px;
-        height:100px;
-    }
-
+    position:relative;
+    
+  
 }

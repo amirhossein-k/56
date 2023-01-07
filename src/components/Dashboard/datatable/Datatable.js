@@ -21,6 +21,7 @@ import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SyncIcon from "@mui/icons-material/Sync";
 import Modal from "../modal/Modal";
+import ModalImages from "../modal/ModalImages";
 // ......................................................
 import ModalImage from "react-modal-image";
 //.......................................................
@@ -68,7 +69,7 @@ const Datatable = () => {
         <img
           src={params.value}
           className="img-table "
-          onClick={(e) => habdlepic(e)}
+          onClick={habdlepic(params.value)}
         />
       ),
     },
@@ -104,16 +105,13 @@ const Datatable = () => {
         <GridActionsCellItem
           icon={<SyncIcon />}
           label="Toggle Admin"
-          onClick={openhandle(params.id)}
+          onClick={() => openhandle(params.id)}
           showInMenu
         />,
       ],
     },
   ];
-  const habdlepic = (e) => {
-    setUrlpic(e.target.currentSrc);
-    setOpenpic(true);
-  };
+
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
@@ -129,26 +127,11 @@ const Datatable = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isid, setIsId] = useState("");
   const [urlpic, setUrlpic] = useState("");
-  const [openpic, setOpenpic] = useState("");
+  const [openpic, setOpenpic] = useState(false);
   /////////////////
   const [pr, setPer] = useState([]);
-  useEffect(() => {
-    dispatch(listProductAction());
-    if (product) {
-      console.log("amad");
-      setPer(product);
-      console.log(isid);
-      var result = product.find(({ id }) => id == id);
-      setNameCar(result.namecar);
+  const [produc, setProduc] = useState([]);
 
-      setFactory(result.factory);
-      setDistance(result.distance);
-      setSkills(result.skills);
-      setPic(result.pic);
-      setStatus(result.status);
-      setPrice(result.price);
-    }
-  }, [dispatch, successDelete, isid]);
   ////////////
   const [namecar, setNameCar] = useState("");
   const [factory, setFactory] = useState("");
@@ -164,15 +147,51 @@ const Datatable = () => {
   };
 
   /////////
-  const openhandle = React.useCallback(
-    (id: GridRowId) => () => {
+  const openhandle = (me) => {
+    setIsOpen(true);
+    setIsId(me);
+    var result = product.find(({ id }) => id === me);
+    console.log(result, "bad resultsave");
+    setNameCar(result.namecar);
+    console.log(isid, "bad save");
+    setFactory(result.factory);
+    setDistance(result.distance);
+    setSkills(result.skills);
+    setPic(result.pic);
+    setStatus(result.status);
+    setPrice(result.price);
+  };
+  const habdlepic = React.useCallback(
+    (pic: GridRowPic) => () => {
       setTimeout(() => {
-        setIsOpen(true);
-        setIsId(id);
+        setUrlpic(pic);
+        setOpenpic(true);
       });
     },
     []
   );
+  ////////
+  // const openhandle = React.useCallback(
+  //   (id: GridRowId) => () => {
+  //     setTimeout(() => {
+  //       setIsOpen(true);
+  //       console.log(id, "qabl save");
+  //       setIsId(id);
+  //       console.log(isid, "effect");
+  //     var result = product.find(({ id }) => id === isid);
+  //     console.log(result, "bad resultsave");
+  //     setNameCar(result.namecar);
+  //     console.log(isid, "bad save");
+  //     setFactory(result.factory);
+  //     setDistance(result.distance);
+  //     setSkills(result.skills);
+  //     setPic(result.pic);
+  //     setStatus(result.status);
+  //     setPrice(result.price);
+  //     });
+  //   },
+  //   []
+  // );
   ///////////
 
   /////////////
@@ -186,7 +205,13 @@ const Datatable = () => {
     []
   );
   // ...................
-
+  useEffect(() => {
+    dispatch(listProductAction());
+    if (product) {
+      console.log("amad");
+      setPer(product);
+    }
+  }, [dispatch, successDelete]);
   return (
     <>
       <Box sx={{ height: 400, width: "100%" }}>
@@ -221,10 +246,11 @@ const Datatable = () => {
           setPic={setPic}
           setStatus={setStatus}
           setPrice={setPrice}
+          isOpen={isOpen}
         />
       )}
       {openpic && (
-        <Modal
+        <ModalImage
           urlpic={urlpic}
           setUrlpic={setUrlpic}
           openpic={openpic}
