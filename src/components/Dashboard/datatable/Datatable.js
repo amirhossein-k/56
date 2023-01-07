@@ -21,6 +21,7 @@ import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SyncIcon from "@mui/icons-material/Sync";
 import Modal from "../modal/Modal";
+import ModalImages from "../modal/ModalImages";
 // ......................................................
 import ModalImage from "react-modal-image";
 //.......................................................
@@ -68,7 +69,7 @@ const Datatable = () => {
         <img
           src={params.value}
           className="img-table "
-          onClick={(e) => habdlepic(e)}
+          onClick={habdlepic(params.value)}
         />
       ),
     },
@@ -110,10 +111,7 @@ const Datatable = () => {
       ],
     },
   ];
-  const habdlepic = (e) => {
-    setUrlpic(e.target.currentSrc);
-    setOpenpic(true);
-  };
+
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
@@ -129,7 +127,7 @@ const Datatable = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isid, setIsId] = useState("");
   const [urlpic, setUrlpic] = useState("");
-  const [openpic, setOpenpic] = useState("");
+  const [openpic, setOpenpic] = useState(false);
   /////////////////
   const [pr, setPer] = useState([]);
   useEffect(() => {
@@ -164,6 +162,20 @@ const Datatable = () => {
   };
 
   /////////
+  // const habdlepic = (e) => {
+  //   setUrlpic(e.target.currentSrc);
+  //   setOpenpic(!true);
+  // };
+  const habdlepic = React.useCallback(
+    (pic: GridRowPic) => () => {
+      setTimeout(() => {
+        setUrlpic(pic);
+        setOpenpic(true);
+      });
+    },
+    []
+  );
+  ////////
   const openhandle = React.useCallback(
     (id: GridRowId) => () => {
       setTimeout(() => {
@@ -221,10 +233,11 @@ const Datatable = () => {
           setPic={setPic}
           setStatus={setStatus}
           setPrice={setPrice}
+          isOpen={isOpen}
         />
       )}
       {openpic && (
-        <Modal
+        <ModalImages
           urlpic={urlpic}
           setUrlpic={setUrlpic}
           openpic={openpic}

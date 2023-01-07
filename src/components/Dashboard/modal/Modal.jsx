@@ -35,6 +35,7 @@ const Modal = ({
   setUrlpic,
   setOpenpic,
   openpic,
+  isOpen,
 }) => {
   ////////////////////////
   let navigate = useNavigate();
@@ -102,8 +103,8 @@ const Modal = ({
     navigate("/dashboard");
   };
   const handleclose = () => {
-    // setIsOpen(false);
-    setOpenpic(false);
+    setIsOpen(false);
+    // setOpenpic(false);
   };
   useEffect(() => {}, []);
   return (
@@ -117,7 +118,7 @@ const Modal = ({
           <button className={styles.closeBtn} onClick={() => handleclose()}>
             <RiCloseLine style={{ marginBottom: "-3px" }} />
           </button>
-          {isform && (
+          {isOpen && (
             <div className={styles.modalContent}>
               <div className="top">
                 <h1>Add New Product</h1>
@@ -227,7 +228,7 @@ const Modal = ({
               </div>
             </div>
           )}
-          {openpic && (
+          {isOpen && (
             <div className={styles.modalContent}>
               <img src={urlpic} style={{ width: 200 }} />
             </div>
