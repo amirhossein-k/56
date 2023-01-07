@@ -105,7 +105,7 @@ const Datatable = () => {
         <GridActionsCellItem
           icon={<SyncIcon />}
           label="Toggle Admin"
-          onClick={openhandle(params.id)}
+          onClick={() => openhandle(params.id)}
           showInMenu
         />,
       ],
@@ -130,23 +130,8 @@ const Datatable = () => {
   const [openpic, setOpenpic] = useState(false);
   /////////////////
   const [pr, setPer] = useState([]);
-  useEffect(() => {
-    dispatch(listProductAction());
-    if (product) {
-      console.log("amad");
-      setPer(product);
-      console.log(isid);
-      var result = product.find(({ id }) => id == id);
-      setNameCar(result.namecar);
+  const [produc, setProduc] = useState([]);
 
-      setFactory(result.factory);
-      setDistance(result.distance);
-      setSkills(result.skills);
-      setPic(result.pic);
-      setStatus(result.status);
-      setPrice(result.price);
-    }
-  }, [dispatch, successDelete, isid]);
   ////////////
   const [namecar, setNameCar] = useState("");
   const [factory, setFactory] = useState("");
@@ -162,10 +147,20 @@ const Datatable = () => {
   };
 
   /////////
-  // const habdlepic = (e) => {
-  //   setUrlpic(e.target.currentSrc);
-  //   setOpenpic(!true);
-  // };
+  const openhandle = (me) => {
+    setIsOpen(true);
+    setIsId(me);
+    var result = product.find(({ id }) => id === me);
+    console.log(result, "bad resultsave");
+    setNameCar(result.namecar);
+    console.log(isid, "bad save");
+    setFactory(result.factory);
+    setDistance(result.distance);
+    setSkills(result.skills);
+    setPic(result.pic);
+    setStatus(result.status);
+    setPrice(result.price);
+  };
   const habdlepic = React.useCallback(
     (pic: GridRowPic) => () => {
       setTimeout(() => {
@@ -176,15 +171,27 @@ const Datatable = () => {
     []
   );
   ////////
-  const openhandle = React.useCallback(
-    (id: GridRowId) => () => {
-      setTimeout(() => {
-        setIsOpen(true);
-        setIsId(id);
-      });
-    },
-    []
-  );
+  // const openhandle = React.useCallback(
+  //   (id: GridRowId) => () => {
+  //     setTimeout(() => {
+  //       setIsOpen(true);
+  //       console.log(id, "qabl save");
+  //       setIsId(id);
+  //       console.log(isid, "effect");
+  //     var result = product.find(({ id }) => id === isid);
+  //     console.log(result, "bad resultsave");
+  //     setNameCar(result.namecar);
+  //     console.log(isid, "bad save");
+  //     setFactory(result.factory);
+  //     setDistance(result.distance);
+  //     setSkills(result.skills);
+  //     setPic(result.pic);
+  //     setStatus(result.status);
+  //     setPrice(result.price);
+  //     });
+  //   },
+  //   []
+  // );
   ///////////
 
   /////////////
@@ -198,7 +205,13 @@ const Datatable = () => {
     []
   );
   // ...................
-
+  useEffect(() => {
+    dispatch(listProductAction());
+    if (product) {
+      console.log("amad");
+      setPer(product);
+    }
+  }, [dispatch, successDelete]);
   return (
     <>
       <Box sx={{ height: 400, width: "100%" }}>
@@ -237,7 +250,7 @@ const Datatable = () => {
         />
       )}
       {openpic && (
-        <ModalImages
+        <ModalImage
           urlpic={urlpic}
           setUrlpic={setUrlpic}
           openpic={openpic}

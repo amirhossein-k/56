@@ -203,8 +203,8 @@ const Modal = ({
                         label="وضعیت"
                         onChange={(e) => setStatus(e.target.value)}
                       >
-                        <MenuItem value={"موجود"}>موجود</MenuItem>
-                        <MenuItem value={"ناموجود"}>ناموجود</MenuItem>
+                        <MenuItem value={"approved"}>موجود</MenuItem>
+                        <MenuItem value={"sold"}>ناموجود</MenuItem>
                       </Select>
                     </FormControls>
                   </div>

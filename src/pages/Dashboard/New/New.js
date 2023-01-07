@@ -3,34 +3,38 @@ import "./new.scss";
 import { Col, Row, Button, Form, FormControl } from "react-bootstrap";
 import { TagsInput } from "react-tag-input-component";
 import { Link, useNavigate } from "react-router-dom";
-import {useDispatch,useSelector} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../../../components/Dashboard/sidebar/Sidebar";
-import {createProductAction} from '../../../actions/productActions'
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControls from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { createProductAction } from "../../../actions/productActions";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControls from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import ReactLoading from "react-loading";
 const New = () => {
   const [namecar, setNameCar] = useState("");
   const [factory, setFactory] = useState("");
   const [distance, setDistance] = useState("");
-  
+
   const [skills, setSkills] = useState([]);
   const [pic, setPic] = useState("");
-  const [status, setStatus] = useState('');
-  const [price, setPrice] = useState('');
+  const [status, setStatus] = useState("");
+  const [price, setPrice] = useState("");
 
   ////////////////////////
   let navigate = useNavigate();
   const fileInput = useRef(null);
   const dispatch = useDispatch();
   //////////////////////
+  const productcrate = useSelector((state) => state.productCreate);
+  const { loading } = productcrate;
+  /////////////////////
   useEffect(() => {
     // if (userInfo) {
     //   navigate("/product");
     // }
-
-  }, [fileInput, pic]);
+    console.log("loading", loading);
+  }, [fileInput, pic, loading]);
   //////////////////////////
   const postDetails = (pics) => {
     if (
@@ -64,24 +68,34 @@ const New = () => {
     }
   };
   //////////////
-  const resetHandler =()=>{
-    setNameCar('')
-    setFactory('')
-    setDistance('')
-  
-    setSkills([null])
-    fileInput.current.value = null
-    setPic('')
-  }
+  const resetHandler = () => {
+    setNameCar("");
+    setFactory("");
+    setDistance("");
+
+    setSkills([null]);
+    fileInput.current.value = null;
+    setPic("");
+  };
   ///////////////
-  const submitHandler =(e)=>{
+  const submitHandler = (e) => {
     e.preventDefault();
-    if(!namecar || !factory || !distance || !skills ) return
-    dispatch(createProductAction(namecar,factory,distance,skills,pic,price,status))
-    resetHandler()
-    navigate('/dashboard')
-    console.log(status)
-  }
+    if (!namecar || !factory || !distance || !skills) return;
+    dispatch(
+      createProductAction(
+        namecar,
+        factory,
+        distance,
+        skills,
+        pic,
+        price,
+        status
+      )
+    );
+    resetHandler();
+    // navigate("/dashboard");
+    console.log(status);
+  };
 
   ///////////////
 
@@ -96,6 +110,17 @@ const New = () => {
         <div className="top">
           <h1>Add New Product</h1>
         </div>
+        {loading && (
+          <div className="loading">
+            <ReactLoading
+              type={"bubbles"}
+              color="#000"
+              height={500}
+              width={500}
+            />
+          </div>
+        )}
+
         {/* ///// end top ////// */}
         <div className="bottom-new">
           {/* <img src={pic} className="imgproduct" /> */}
@@ -162,25 +187,23 @@ const New = () => {
               />
               {/* //////statsu///// */}
               <FormControls sx={{ m: 1, minWidth: 120 }} size="small">
-      <InputLabel id="demo-select-small">وضعیت</InputLabel>
-      <Select
-        labelId="demo-select-small"
-        id="demo-select-small"
-        value={status}
-        label="وضعیت"
-        onChange={(e)=>setStatus(e.target.value)}
-      >
-        
-        <MenuItem value={'approved'}>موجود</MenuItem>
-        <MenuItem value={'sold'}>ناموجود</MenuItem>
-        
-      </Select>
-    </FormControls>
+                <InputLabel id="demo-select-small">وضعیت</InputLabel>
+                <Select
+                  labelId="demo-select-small"
+                  id="demo-select-small"
+                  value={status}
+                  label="وضعیت"
+                  onChange={(e) => setStatus(e.target.value)}
+                >
+                  <MenuItem value={"approved"}>موجود</MenuItem>
+                  <MenuItem value={"sold"}>ناموجود</MenuItem>
+                </Select>
+              </FormControls>
             </div>
             <div className="button-new">
               <Button type="submit" variant="primary" className="create-new">
-               Create Note
-             </Button>
+                Create Note
+              </Button>
               <Button className="mx-2" onClick={resetHandler} variant="danger">
                 Reset Feilds
               </Button>
