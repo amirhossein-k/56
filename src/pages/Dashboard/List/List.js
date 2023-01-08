@@ -11,7 +11,7 @@ const List = () => {
       </Col>
 
       <Col sm={12} md={10} lg={10}>
-        <div className="listContainer">
+        <div className="listContainer" style={{ width: "100%", padding: 5 }}>
           <Datatable />
         </div>
       </Col>
