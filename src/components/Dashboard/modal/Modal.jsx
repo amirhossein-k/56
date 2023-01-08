@@ -36,6 +36,8 @@ const Modal = ({
   setOpenpic,
   openpic,
   isOpen,
+  setLoadupdate,
+  loadupdate,
 }) => {
   ////////////////////////
   let navigate = useNavigate();
@@ -109,16 +111,13 @@ const Modal = ({
     );
 
     resetHandler();
+    setIsOpen(false);
   };
   const handleclose = () => {
     setIsOpen(false);
     // setOpenpic(false);
   };
-  useEffect(() => {
-    if (loadingUpdate === false && successUpdate === true) {
-      // navigate("/dashboard");
-    }
-  }, [successUpdate, loadingUpdate]);
+  useEffect(() => {}, [successUpdate]);
   return (
     <>
       <div className={styles.darkBG} onClick={() => handleclose()} />
@@ -139,7 +138,7 @@ const Modal = ({
               <div className="bottom-new">
                 {/* <img src={pic} className="imgproduct" /> */}
                 <img src={pic ? pic : null} className={styles.imgproduct} />
-                <Form className={styles.formfix}>
+                <Form className={styles.formfix} onSubmit={submitHandler}>
                   <div className="form-0">
                     <Form.Group controlId="pic">
                       <Form.Label>Profile Picture</Form.Label>
@@ -227,7 +226,7 @@ const Modal = ({
                       className={`create-new ${
                         loadpic ? "disabled" : "inline-block"
                       }`}
-                      onClick={(e) => submitHandler(e)}
+                      // onClick={(e) => submitHandler(e)}
                     >
                       اپدیت
                     </Button>

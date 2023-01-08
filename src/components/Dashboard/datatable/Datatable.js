@@ -128,6 +128,7 @@ const Datatable = () => {
   const [isid, setIsId] = useState("");
   const [urlpic, setUrlpic] = useState("");
   const [openpic, setOpenpic] = useState(false);
+  const [loadupdate, setLoadupdate] = useState(false);
   /////////////////
   const [pr, setPer] = useState([]);
   const [produc, setProduc] = useState([]);
@@ -171,7 +172,6 @@ const Datatable = () => {
     []
   );
   ////////
-  
 
   /////////////
   const deletehandle = React.useCallback(
@@ -190,21 +190,27 @@ const Datatable = () => {
       console.log("amad");
       setPer(product);
     }
-  }, [dispatch, successDelete]);
+  }, [dispatch, successDelete, loadupdate]);
   return (
     <>
       <Box sx={{ height: 400, width: "100%" }}>
-        {product && (
-          <DataGrid
-            rows={product}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            checkboxSelection
-            disableSelectionOnClick
-            experimentalFeatures={{ newEditingApi: true }}
-          />
-        )}
+        {(() => {
+          if (product) {
+            return (
+              <DataGrid
+                rows={product}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                checkboxSelection
+                disableSelectionOnClick
+                experimentalFeatures={{ newEditingApi: true }}
+              />
+            );
+          } else {
+            return <h1 className="loadingclass">Loading</h1>;
+          }
+        })()}
       </Box>
       {isOpen && (
         <Modal
@@ -226,6 +232,8 @@ const Datatable = () => {
           setStatus={setStatus}
           setPrice={setPrice}
           isOpen={isOpen}
+          setLoadupdate={setLoadupdate}
+          loadupdate={loadupdate}
         />
       )}
       {openpic && (
