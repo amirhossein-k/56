@@ -42,12 +42,17 @@ const Modal = ({
   const fileInput = useRef(null);
   const dispatch = useDispatch();
   ///////////////
+  const productupdate = useSelector((state) => state.productUpdate);
+  const { loading: loadingUpdate, success: successUpdate } = productupdate;
+  //////////////
+  const [loadpic, setLoadpic] = useState(false);
   const postDetails = (pics) => {
     if (
       pics.type === "image/jpeg" ||
       pics.type === "image/png" ||
       pics.type === "image/jpg"
     ) {
+      setLoadpic(true);
       const data = new FormData();
       data.append("file", pics);
       data.append("upload_preset", "notezipper");
@@ -60,6 +65,7 @@ const Modal = ({
       //   console.log(fileInput.current.files, "toye tttt");
       // }, 5000);
       /////
+
       fetch("https://api.cloudinary.com/v1_1/dijamrzud/image/upload", {
         method: "post",
         body: data,
@@ -67,6 +73,7 @@ const Modal = ({
         .then((res) => res.json())
         .then((data) => {
           setPic(data.url.toString());
+          setLoadpic(false);
         })
         .catch((err) => console.log(err));
     } else {
@@ -87,6 +94,7 @@ const Modal = ({
   const submitHandler = (e) => {
     e.preventDefault();
     if (!namecar || !factory || !distance || !skills) return;
+
     dispatch(
       updateProductAction(
         isid,
@@ -99,14 +107,18 @@ const Modal = ({
         status
       )
     );
+
     resetHandler();
-    navigate("/dashboard");
   };
   const handleclose = () => {
     setIsOpen(false);
     // setOpenpic(false);
   };
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (loadingUpdate === false && successUpdate === true) {
+      // navigate("/dashboard");
+    }
+  }, [successUpdate, loadingUpdate]);
   return (
     <>
       <div className={styles.darkBG} onClick={() => handleclose()} />
@@ -127,7 +139,7 @@ const Modal = ({
               <div className="bottom-new">
                 {/* <img src={pic} className="imgproduct" /> */}
                 <img src={pic ? pic : null} className={styles.imgproduct} />
-                <Form className={styles.formfix} onSubmit={submitHandler}>
+                <Form className={styles.formfix}>
                   <div className="form-0">
                     <Form.Group controlId="pic">
                       <Form.Label>Profile Picture</Form.Label>
@@ -212,16 +224,19 @@ const Modal = ({
                     <Button
                       type="submit"
                       variant="primary"
-                      className="create-new"
+                      className={`create-new ${
+                        loadpic ? "disabled" : "inline-block"
+                      }`}
+                      onClick={(e) => submitHandler(e)}
                     >
-                      Create Note
+                      اپدیت
                     </Button>
                     <Button
                       className="mx-2"
                       onClick={resetHandler}
                       variant="danger"
                     >
-                      Reset Feilds
+                      ریست
                     </Button>
                   </div>
                 </Form>

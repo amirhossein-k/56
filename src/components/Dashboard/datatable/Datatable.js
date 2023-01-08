@@ -171,28 +171,7 @@ const Datatable = () => {
     []
   );
   ////////
-  // const openhandle = React.useCallback(
-  //   (id: GridRowId) => () => {
-  //     setTimeout(() => {
-  //       setIsOpen(true);
-  //       console.log(id, "qabl save");
-  //       setIsId(id);
-  //       console.log(isid, "effect");
-  //     var result = product.find(({ id }) => id === isid);
-  //     console.log(result, "bad resultsave");
-  //     setNameCar(result.namecar);
-  //     console.log(isid, "bad save");
-  //     setFactory(result.factory);
-  //     setDistance(result.distance);
-  //     setSkills(result.skills);
-  //     setPic(result.pic);
-  //     setStatus(result.status);
-  //     setPrice(result.price);
-  //     });
-  //   },
-  //   []
-  // );
-  ///////////
+  
 
   /////////////
   const deletehandle = React.useCallback(

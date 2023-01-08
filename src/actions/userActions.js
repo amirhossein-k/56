@@ -5,7 +5,7 @@ import {
   USER_LOGOUT,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAIL
+  USER_REGISTER_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -14,11 +14,11 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({ type: USER_LOGIN_REQUEST });
     const config = {
       header: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
     const { data } = await axios.post(
-      "https://4oqwur-9000.preview.csb.app/api/user/login",
+      "https://backend-site-asll.vercel.app/api/user/login",
       { email, password },
       config
     );
@@ -30,7 +30,7 @@ export const login = (email, password) => async (dispatch) => {
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message
+          : error.message,
     });
   }
 };
@@ -46,12 +46,12 @@ export const register = (name, email, password, pic) => async (dispatch) => {
     /////
     const config = {
       header: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
     ////
     const { data } = await axios.post(
-      "https://4oqwur-9000.preview.csb.app/api/user",
+      "https://backend-site-asll.vercel.app/api/user",
       { name, email, password, pic },
       config
     );
@@ -64,7 +64,7 @@ export const register = (name, email, password, pic) => async (dispatch) => {
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message
+          : error.message,
     });
   }
 };
