@@ -26,7 +26,7 @@ import ModalImages from "../modal/ModalImages";
 import ModalImage from "react-modal-image";
 //.......................................................
 
-const Datatable = () => {
+const Datatable = ({ setDatas, datas }) => {
   const [rows, setRows] = useState([]);
 
   const deleteUser = React.useCallback(

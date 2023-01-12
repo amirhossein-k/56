@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Swipper from "./Swipper/Swipper";
 import Search from "./Search/Search";
 import Cards from "./Cards/Cards";
 import Header from "./Header/Header";
 import "../styles/Home.css";
+import axios from "axios";
 const Home = ({ userInfo }) => {
+  const [datas, setDatas] = useState([]);
+
+  const getAnswer = async () => {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const { data } = await axios.get(
+      "https://backend-site-asll.vercel.app/api/product/list",
+      config
+    );
+    setDatas(data);
+    // console.log(data, "val");
+  };
+  const fetch = useMemo(() => getAnswer(), []);
+  useEffect(() => {}, [datas]);
   return (
     // <>
     <Container fluid className="gx-0">
@@ -17,14 +35,20 @@ const Home = ({ userInfo }) => {
         <Search />
       </Row>
       <Row className="gap-4 fix">
-        <Cards />
+        <Cards datas={datas} setDatas={setDatas} />
       </Row>
       <Row>
         <Col lg={6} className="background">
           <div className="ani-back">
-            <img src="https://res.cloudinary.com/dijamrzud/image/upload/v1668962705/circle_h6orwc.gif" />
+            <img
+              src="https://res.cloudinary.com/dijamrzud/image/upload/v1668962705/circle_h6orwc.gif"
+              alt="image"
+            />
             <div className="car-img">
-              <img src="https://res.cloudinary.com/dijamrzud/image/upload/v1668962697/car_z05a6c.png" />
+              <img
+                src="https://res.cloudinary.com/dijamrzud/image/upload/v1668962697/car_z05a6c.png"
+                alt="image"
+              />
             </div>
           </div>
         </Col>
