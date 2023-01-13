@@ -6,24 +6,19 @@ import Cards from "./Cards/Cards";
 import Header from "./Header/Header";
 import "../styles/Home.css";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { listProductAction } from "../actions/productActions";
+///////////
 const Home = ({ userInfo }) => {
-  const [datas, setDatas] = useState([]);
+  const dispatch = useDispatch();
 
-  const getAnswer = async () => {
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
-    const { data } = await axios.get(
-      "https://backend-site-asll.vercel.app/api/product/list",
-      config
-    );
-    setDatas(data);
-    // console.log(data, "val");
-  };
-  const fetch = useMemo(() => getAnswer(), []);
-  useEffect(() => {}, [datas]);
+  const productList = useSelector((state) => state.productList);
+  const { product, loading } = productList;
+
+  const fetch = useMemo(() => {
+    dispatch(listProductAction());
+  }, []);
+  useEffect(() => {}, []);
   return (
     // <>
     <Container fluid className="gx-0">
@@ -35,7 +30,7 @@ const Home = ({ userInfo }) => {
         <Search />
       </Row>
       <Row className="gap-4 fix">
-        <Cards datas={datas} setDatas={setDatas} />
+        <Cards product={product} loading={loading} />
       </Row>
       <Row>
         <Col lg={6} className="background">

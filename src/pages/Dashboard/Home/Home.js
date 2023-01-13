@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./home.scss";
 import Sidebar from "../../../components/Dashboard/sidebar/Sidebar";
@@ -17,11 +17,13 @@ import { listProductAction } from "../../../actions/productActions";
 const HomeDashboard = () => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { product } = productList;
-  console.log(product);
-  useEffect(() => {
+  const { product, loading } = productList;
+
+  const fetch = useMemo(() => {
     dispatch(listProductAction());
-  }, [dispatch]);
+  }, []);
+  useEffect(() => {}, []);
+
   return (
     <Container
       fluid

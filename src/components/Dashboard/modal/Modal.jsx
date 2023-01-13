@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 
 import styles from "./modal.module.scss";
 import { RiCloseLine } from "react-icons/ri";
@@ -38,8 +38,11 @@ const Modal = ({
   isOpen,
   setLoadupdate,
   loadupdate,
+  setUpdate,
 }) => {
   ////////////////////////
+
+  //////////////////////////
   let navigate = useNavigate();
   const fileInput = useRef(null);
   const dispatch = useDispatch();
@@ -93,6 +96,10 @@ const Modal = ({
     setPic("");
   };
   //////////////
+  const loadupdatehandle = React.useCallback(() => {
+    setLoadupdate((previ) => !previ);
+  }, [loadupdate]);
+  ////////////////
   const submitHandler = (e) => {
     e.preventDefault();
     if (!namecar || !factory || !distance || !skills) return;
@@ -109,7 +116,6 @@ const Modal = ({
         status
       )
     );
-
     resetHandler();
     setIsOpen(false);
   };
@@ -117,10 +123,23 @@ const Modal = ({
     setIsOpen(false);
     // setOpenpic(false);
   };
-  useEffect(() => {}, [successUpdate]);
+  /////////////
+
+  useEffect(() => {
+    
+    setLoadupdate(true);
+    console.log(loadupdate, "load");
+
+    console.log("odaleffect");
+    console.log(loadupdate, "load");
+    setLoadupdate(false);
+
+    // }
+  }, []);
+
   return (
     <>
-      <div className={styles.darkBG} onClick={() => handleclose()} />
+      <div className={styles.darkBG} />
       <div className={styles.centered}>
         <div className={styles.modal}>
           {/* <div className={styles.modalHeader}>

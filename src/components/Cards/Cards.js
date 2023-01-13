@@ -8,13 +8,14 @@ import axios from "axios";
 // import { useDispatch, useSelector } from "react-redux";
 // import { listProductAction } from "../../actions/productActions";
 
-const Cards = ({ setDatas, datas }) => {
+const Cards = ({ product, loading }) => {
   // const dispatch = useDispatch();
 
   return (
     <>
-      {datas &&
-        datas.map((item) => {
+      {loading && <h1>درحال خواندن دیتا هستیم منتظر بمانید</h1>}
+      {!loading &&
+        product.map((item) => {
           return (
             <Card className="pruduct" key={item.id}>
               <Card.Img

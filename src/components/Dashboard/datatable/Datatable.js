@@ -1,6 +1,12 @@
 import "./datatable.scss";
 
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   listProductAction,
@@ -106,6 +112,7 @@ const Datatable = ({ setDatas, datas }) => {
           icon={<SyncIcon />}
           label="Toggle Admin"
           onClick={() => openhandle(params.id)}
+          // onClick={()=>openMemo}
           showInMenu
         />,
       ],
@@ -117,6 +124,8 @@ const Datatable = ({ setDatas, datas }) => {
   const productList = useSelector((state) => state.productList);
   const { product, loading } = productList;
   /////////////
+
+  //////////////
   const productDelete = useSelector((state) => state.productDelete);
   const {
     success: successDelete,
@@ -129,6 +138,7 @@ const Datatable = ({ setDatas, datas }) => {
   const [urlpic, setUrlpic] = useState("");
   const [openpic, setOpenpic] = useState(false);
   const [loadupdate, setLoadupdate] = useState(false);
+  const [update, setUpdate] = useState(false);
   /////////////////
   const [pr, setPer] = useState([]);
   const [produc, setProduc] = useState([]);
@@ -162,6 +172,20 @@ const Datatable = ({ setDatas, datas }) => {
     setStatus(result.status);
     setPrice(result.price);
   };
+  function opanhandlee(me) {
+    setIsId(me);
+    var result = product.find(({ id }) => id === me);
+    console.log(result, "bad resultsave");
+    setNameCar(result.namecar);
+    console.log(isid, "bad save");
+    setFactory(result.factory);
+    setDistance(result.distance);
+    setSkills(result.skills);
+    setPic(result.pic);
+    setStatus(result.status);
+    setPrice(result.price);
+  }
+  // const openMemo = useMemo(() => {}, [isOpen]);
   const habdlepic = React.useCallback(
     (pic: GridRowPic) => () => {
       setTimeout(() => {
@@ -234,6 +258,7 @@ const Datatable = ({ setDatas, datas }) => {
           isOpen={isOpen}
           setLoadupdate={setLoadupdate}
           loadupdate={loadupdate}
+          setUpdate={setUpdate}
         />
       )}
       {openpic && (
