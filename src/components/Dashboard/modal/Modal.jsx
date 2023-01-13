@@ -51,6 +51,7 @@ const Modal = ({
   const { loading: loadingUpdate, success: successUpdate } = productupdate;
   //////////////
   const [loadpic, setLoadpic] = useState(false);
+  const [load, setLoad] = useState(false);
   const postDetails = (pics) => {
     if (
       pics.type === "image/jpeg" ||
@@ -96,11 +97,12 @@ const Modal = ({
     setPic("");
   };
   //////////////
-  const loadupdatehandle = React.useCallback(() => {
-    setLoadupdate((previ) => !previ);
-  }, [loadupdate]);
+  // const loadupdatehandle = React.useCallback(() => {
+  //   setLoadupdate((previ) => !previ);
+  // }, [loadupdate]);
   ////////////////
   const submitHandler = (e) => {
+    setLoad(true);
     e.preventDefault();
     if (!namecar || !factory || !distance || !skills) return;
 
@@ -116,26 +118,22 @@ const Modal = ({
         status
       )
     );
+
     resetHandler();
     setIsOpen(false);
   };
+
   const handleclose = () => {
     setIsOpen(false);
     // setOpenpic(false);
   };
   /////////////
-
   useEffect(() => {
-    
-    setLoadupdate(true);
-    console.log(loadupdate, "load");
-
-    console.log("odaleffect");
-    console.log(loadupdate, "load");
-    setLoadupdate(false);
-
-    // }
-  }, []);
+    if (load === true) {
+      navigate("/dashboard/products");
+      setLoad(false);
+    }
+  }, [successUpdate, navigate, load]);
 
   return (
     <>
