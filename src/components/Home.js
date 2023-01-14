@@ -18,7 +18,7 @@ const Home = ({ userInfo }) => {
   const fetch = useMemo(() => {
     dispatch(listProductAction());
   }, []);
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
   return (
     // <>
     <Container fluid className="gx-0">

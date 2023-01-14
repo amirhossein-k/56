@@ -112,8 +112,6 @@ const Datatable = ({ setDatas, datas }) => {
           icon={<SyncIcon />}
           label="Toggle Admin"
           onClick={() => openhandle(params.id)}
-          // onClick={()=>openMemo}
-          showInMenu
         />,
       ],
     },
@@ -133,7 +131,7 @@ const Datatable = ({ setDatas, datas }) => {
     error: errorDelete,
   } = productDelete;
   ////////////
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpens, setIsOpens] = useState(false);
   const [isid, setIsId] = useState("");
   const [urlpic, setUrlpic] = useState("");
   const [openpic, setOpenpic] = useState(false);
@@ -159,12 +157,12 @@ const Datatable = ({ setDatas, datas }) => {
 
   /////////
   const openhandle = (me) => {
-    setIsOpen(true);
+    setIsOpens(true);
     setIsId(me);
     var result = product.find(({ id }) => id === me);
-    console.log(result, "bad resultsave");
+    console.log(isOpens, "isopen");
     setNameCar(result.namecar);
-    console.log(isid, "bad save");
+
     setFactory(result.factory);
     setDistance(result.distance);
     setSkills(result.skills);
@@ -172,20 +170,7 @@ const Datatable = ({ setDatas, datas }) => {
     setStatus(result.status);
     setPrice(result.price);
   };
-  function opanhandlee(me) {
-    setIsId(me);
-    var result = product.find(({ id }) => id === me);
-    console.log(result, "bad resultsave");
-    setNameCar(result.namecar);
-    console.log(isid, "bad save");
-    setFactory(result.factory);
-    setDistance(result.distance);
-    setSkills(result.skills);
-    setPic(result.pic);
-    setStatus(result.status);
-    setPrice(result.price);
-  }
-  // const openMemo = useMemo(() => {}, [isOpen]);
+
   const habdlepic = React.useCallback(
     (pic: GridRowPic) => () => {
       setTimeout(() => {
@@ -214,7 +199,7 @@ const Datatable = ({ setDatas, datas }) => {
       console.log("amad");
       setPer(product);
     }
-  }, [dispatch, successDelete, loadupdate]);
+  }, [dispatch, successDelete]);
   return (
     <>
       <Box sx={{ height: 400, width: "100%" }}>
@@ -236,9 +221,9 @@ const Datatable = ({ setDatas, datas }) => {
           }
         })()}
       </Box>
-      {isOpen && (
+      {isOpens && (
         <Modal
-          setIsOpen={setIsOpen}
+          setIsOpens={setIsOpens}
           updatehandle={updatehandle}
           isid={isid}
           price={price}
@@ -255,7 +240,7 @@ const Datatable = ({ setDatas, datas }) => {
           setPic={setPic}
           setStatus={setStatus}
           setPrice={setPrice}
-          isOpen={isOpen}
+          isOpens={isOpens}
           setLoadupdate={setLoadupdate}
           loadupdate={loadupdate}
           setUpdate={setUpdate}

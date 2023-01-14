@@ -20,6 +20,8 @@ const New = () => {
   const [pic, setPic] = useState("");
   const [status, setStatus] = useState("");
   const [price, setPrice] = useState("");
+  const [loade, setLoade] = useState(false);
+  const [sucessprop, setSucessprop] = useState(false);
 
   ////////////////////////
   let navigate = useNavigate();
@@ -27,14 +29,26 @@ const New = () => {
   const dispatch = useDispatch();
   //////////////////////
   const productcrate = useSelector((state) => state.productCreate);
-  const { loading } = productcrate;
+  const { loading, success } = productcrate;
   /////////////////////
   useEffect(() => {
     // if (userInfo) {
     //   navigate("/product");
     // }
     console.log("loading", loading);
-  }, [fileInput, pic, loading]);
+    console.log("success", success);
+
+    if (loading === true) {
+      setLoade(loading);
+    } else if (loading === false) {
+      setSucessprop(success);
+    }
+    if (sucessprop === true && loade === false) {
+      setLoade(undefinednudi);
+      setSucessprop(undefined);
+      navigate("/dashboard/product");
+    }
+  }, [fileInput, loading, loade, sucessprop]);
   //////////////////////////
   const postDetails = (pics) => {
     if (
@@ -170,36 +184,48 @@ const New = () => {
               </Form.Group>
               {/* //// */}
             </div>
-            <div className="form-2">
-              {/* //// */}
-              {/* <Form.Group controlId="formControlsTextarea">
-              <Form.Label>نام خودرو</Form.Label>
-              <Form.Control componentClass="textarea" value={propertys}
-                placeholder="ویژگی"
-                onChange={e=> setPropertys(e.target.value)} />
-            </Form.Group> */}
-              {/* //// */}
-              <TagsInput
-                value={skills}
-                onChange={setSkills}
-                name="fruits"
-                placeHolder="ویژگی"
-              />
-              {/* //////statsu///// */}
-              <FormControls sx={{ m: 1, minWidth: 120 }} size="small">
-                <InputLabel id="demo-select-small">وضعیت</InputLabel>
-                <Select
-                  labelId="demo-select-small"
-                  id="demo-select-small"
-                  value={status}
-                  label="وضعیت"
-                  onChange={(e) => setStatus(e.target.value)}
+            <div className="form-2 row">
+              <Col md={5} lg={4}>
+                <TagsInput
+                  value={skills}
+                  onChange={setSkills}
+                  // name="skills"
+                  placeHolder="ویژگی"
+                />
+              </Col>
+              <Col>
+                <FormControls sx={{ m: 1, minWidth: 120 }} size="small">
+                  <InputLabel id="demo-select-small">وضعیت</InputLabel>
+                  <Select
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    value={status}
+                    label="وضعیت"
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <MenuItem value={"approved"}>موجود</MenuItem>
+                    <MenuItem value={"sold"}>ناموجود</MenuItem>
+                  </Select>
+                </FormControls>
+              </Col>
+              <Col>
+                <Form.Group
+                  controlId="price"
+                  style={{ alignItems: "center", display: "flex" }}
                 >
-                  <MenuItem value={"approved"}>موجود</MenuItem>
-                  <MenuItem value={"sold"}>ناموجود</MenuItem>
-                </Select>
-              </FormControls>
+                  <Form.Label style={{ paddingRight: 5 }}>قیمت</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={price}
+                    placeholder="قیمت"
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+
+              {/* //////statsu///// */}
             </div>
+
             <div className="button-new">
               <Button type="submit" variant="primary" className="create-new">
                 Create Note

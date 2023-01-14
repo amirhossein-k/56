@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateProductAction } from "../../../actions/productActions";
 ///////////////////////////
 const Modal = ({
-  setIsOpen,
+  setIsOpens,
   updatehandle,
   isid,
   price,
@@ -35,7 +35,7 @@ const Modal = ({
   setUrlpic,
   setOpenpic,
   openpic,
-  isOpen,
+  isOpens,
   setLoadupdate,
   loadupdate,
   setUpdate,
@@ -48,7 +48,7 @@ const Modal = ({
   const dispatch = useDispatch();
   ///////////////
   const productupdate = useSelector((state) => state.productUpdate);
-  const { loading: loadingUpdate, success: successUpdate } = productupdate;
+  const { loading, success } = productupdate;
   //////////////
   const [loadpic, setLoadpic] = useState(false);
   const [load, setLoad] = useState(false);
@@ -65,12 +65,6 @@ const Modal = ({
       data.append("cloud_name", "dijamrzud");
       ///////
       console.log(fileInput.current.files);
-
-      // setTimeout(() => {
-      //   setDisable(false);
-      //   console.log(fileInput.current.files, "toye tttt");
-      // }, 5000);
-      /////
 
       fetch("https://api.cloudinary.com/v1_1/dijamrzud/image/upload", {
         method: "post",
@@ -96,10 +90,7 @@ const Modal = ({
     fileInput.current.value = null;
     setPic("");
   };
-  //////////////
-  // const loadupdatehandle = React.useCallback(() => {
-  //   setLoadupdate((previ) => !previ);
-  // }, [loadupdate]);
+
   ////////////////
   const submitHandler = (e) => {
     setLoad(true);
@@ -120,33 +111,29 @@ const Modal = ({
     );
 
     resetHandler();
-    setIsOpen(false);
+    setIsOpens(false);
   };
 
   const handleclose = () => {
-    setIsOpen(false);
+    setIsOpens(false);
     // setOpenpic(false);
   };
   /////////////
   useEffect(() => {
-    if (load === true) {
+    if (loading === false) {
       navigate("/dashboard/products");
-      setLoad(false);
     }
-  }, [successUpdate, navigate, load]);
+  }, [loading]);
 
   return (
     <>
       <div className={styles.darkBG} />
       <div className={styles.centered}>
         <div className={styles.modal}>
-          {/* <div className={styles.modalHeader}>
-            <h5 className={styles.heading}>Dialog</h5>
-          </div> */}
           <button className={styles.closeBtn} onClick={() => handleclose()}>
             <RiCloseLine style={{ marginBottom: "-3px" }} />
           </button>
-          {isOpen && (
+          {isOpens && (
             <div className={styles.modalContent}>
               <div className="top">
                 <h1>Add New Product</h1>
@@ -218,7 +205,7 @@ const Modal = ({
                     <TagsInput
                       value={skills}
                       onChange={setSkills}
-                      name="fruits"
+                      name="skills"
                       placeHolder="ویژگی"
                     />
                     {/* //////statsu///// */}
@@ -235,6 +222,15 @@ const Modal = ({
                         <MenuItem value={"sold"}>ناموجود</MenuItem>
                       </Select>
                     </FormControls>
+                    <Form.Group controlId="price" style={{ width: "20%" }}>
+                      <Form.Label>قیمت</Form.Label>
+                      <Form.Control
+                        type="number"
+                        value={price}
+                        placeholder="قیمت"
+                        onChange={(e) => setPrice(e.target.value)}
+                      />
+                    </Form.Group>
                   </div>
                   <div className="button-new">
                     <Button
@@ -259,7 +255,7 @@ const Modal = ({
               </div>
             </div>
           )}
-          {isOpen && (
+          {isOpens && (
             <div className={styles.modalContent}>
               <img src={urlpic} style={{ width: 200 }} />
             </div>
