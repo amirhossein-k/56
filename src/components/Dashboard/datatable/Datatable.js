@@ -199,6 +199,7 @@ const Datatable = ({ setDatas, datas }) => {
       console.log("amad");
       setPer(product);
     }
+    localStorage.removeItem("setnew");
   }, [dispatch, successDelete]);
   return (
     <>

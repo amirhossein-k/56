@@ -32,23 +32,18 @@ const New = () => {
   const { loading, success } = productcrate;
   /////////////////////
   useEffect(() => {
-    // if (userInfo) {
-    //   navigate("/product");
-    // }
-    console.log("loading", loading);
-    console.log("success", success);
+    localStorage.setItem("setnew", "true");
+    if(success ===true){
+      navigate('/dashboard/products')
+    }(()
+  }, [success, productcrate]);
+  // useEffect(() => {
+  //   setSucessprop(undefined);
 
-    if (loading === true) {
-      setLoade(loading);
-    } else if (loading === false) {
-      setSucessprop(success);
-    }
-    if (sucessprop === true && loade === false) {
-      setLoade(undefinednudi);
-      setSucessprop(undefined);
-      navigate("/dashboard/product");
-    }
-  }, [fileInput, loading, loade, sucessprop]);
+  //   if (sucessprop === true) {
+  //     setSucessprop(undefined);
+  //   }
+  // }, [sucessprop]);
   //////////////////////////
   const postDetails = (pics) => {
     if (
