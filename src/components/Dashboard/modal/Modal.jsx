@@ -11,6 +11,7 @@ import { TagsInput } from "react-tag-input-component";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProductAction } from "../../../actions/productActions";
+
 ///////////////////////////
 const Modal = ({
   setIsOpens,
@@ -108,12 +109,10 @@ const Modal = ({
         price,
         status
       )
-    
-    setTimeout(() => {navigate('/dashboard/product')}, 1500); 
     );
 
     resetHandler();
-    setIsOpens(false);
+    // setUpdate(true)
   };
 
   const handleclose = () => {
@@ -121,11 +120,17 @@ const Modal = ({
     // setOpenpic(false);
   };
   /////////////
+  // useEffect(() => {
+  //   if (loading === false) {
+  //     navigate("/dashboard/products");
+  //   }
+  // }, [loading]);
   useEffect(() => {
-    if (loading === false) {
-      navigate("/dashboard/products");
+    if (success === true) {
+      dispatch(updateProductAction());
+      setUpdate(true);
     }
-  }, [loading]);
+  }, [success]);
 
   return (
     <>
@@ -196,7 +201,6 @@ const Modal = ({
                     {/* //// */}
                   </div>
                   <div className="form-2">
-                 
                     <TagsInput
                       value={skills}
                       onChange={setSkills}
@@ -213,7 +217,7 @@ const Modal = ({
                         label="وضعیت"
                         onChange={(e) => setStatus(e.target.value)}
                       >
-                         <MenuItem value={"null"}></MenuItem>
+                        <MenuItem value={"null"}></MenuItem>
                         <MenuItem value={"approved"}>موجود</MenuItem>
                         <MenuItem value={"sold"}>ناموجود</MenuItem>
                       </Select>
@@ -235,7 +239,6 @@ const Modal = ({
                       className={`create-new ${
                         loadpic ? "disabled" : "inline-block"
                       }`}
-                    
                     >
                       اپدیت
                     </Button>

@@ -12,6 +12,7 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
+  PROUCT_UPDATE_NULL,
 } from "../constants/productConstant";
 import axios from "axios";
 
@@ -115,27 +116,31 @@ export const updateProductAction =
   (id, namecar, factory, distance, skills, pic, price, status) =>
   async (dispatch, getState) => {
     try {
-      dispatch({
-        type: PRODUCT_UPDATE_REQUEST,
-      });
-      const {
-        userLogin: { userInfo },
-      } = getState();
+      if (namecar === null || namecar === undefined) {
+        dispatch({ type: PROUCT_UPDATE_NULL });
+      } else {
+        dispatch({
+          type: PRODUCT_UPDATE_REQUEST,
+        });
+        const {
+          userLogin: { userInfo },
+        } = getState();
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        };
 
-      const { data } = await axios.put(
-        `https://backend-site-asll.vercel.app/api/product/${id}`,
-        { namecar, factory, distance, skills, pic, price, status },
-        config
-      );
+        const { data } = await axios.put(
+          `https://backend-site-asll.vercel.app/api/product/${id}`,
+          { namecar, factory, distance, skills, pic, price, status },
+          config
+        );
 
-      dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
+        dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
+      }
     } catch (error) {
       const message =
         error.response && error.response.data.message

@@ -28,13 +28,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SyncIcon from "@mui/icons-material/Sync";
 import Modal from "../modal/Modal";
 import ModalImages from "../modal/ModalImages";
+import { Link } from "react-router-dom";
 // ......................................................
 import ModalImage from "react-modal-image";
 //.......................................................
 
 const Datatable = ({ setDatas, datas }) => {
-  const [rows, setRows] = useState([]);
-
   const deleteUser = React.useCallback(
     (id: GridRowId) => () => {
       setTimeout(() => {
@@ -122,7 +121,8 @@ const Datatable = ({ setDatas, datas }) => {
   const productList = useSelector((state) => state.productList);
   const { product, loading } = productList;
   /////////////
-
+  //  const productUpdate = useSelector((state) => state.productUpdate);
+  //   const { product, loading } = productUpdate;
   //////////////
   const productDelete = useSelector((state) => state.productDelete);
   const {
@@ -199,10 +199,14 @@ const Datatable = ({ setDatas, datas }) => {
       console.log("amad");
       setPer(product);
     }
-    localStorage.removeItem("setnew");
   }, [dispatch, successDelete]);
+  useEffect(() => {
+    dispatch(listProductAction());
+    setIsOpens(false)
+  }, [update]);
   return (
     <>
+      <Link to="/dashboard/products">Cancel</Link>
       <Box sx={{ height: 400, width: "100%" }}>
         {(() => {
           if (product) {
