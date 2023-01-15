@@ -86,8 +86,11 @@ const Modal = ({
     setNameCar("");
     setFactory("");
     setDistance("");
+    setStatus(null);
+    setPrice("");
 
-    setSkills([null]);
+    setSkills((prevskill) => prevskill.splice(0, prevskill.length));
+
     fileInput.current.value = null;
     setPic("");
   };
