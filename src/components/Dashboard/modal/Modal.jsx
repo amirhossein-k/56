@@ -86,8 +86,11 @@ const Modal = ({
     setNameCar("");
     setFactory("");
     setDistance("");
+    setStatus(null);
+    setPrice("");
 
-    setSkills([null]);
+    setSkills((prevskill) => prevskill.splice(0, prevskill.length));
+
     fileInput.current.value = null;
     setPic("");
   };
@@ -222,7 +225,18 @@ const Modal = ({
                         <MenuItem value={"sold"}>ناموجود</MenuItem>
                       </Select>
                     </FormControls>
-                    <Form.Group controlId="price" style={{ width: "20%" }}>
+                    <Form.Group
+                      controlId="price"
+                      style={{
+                        alignItems: "center",
+                        display: "flex",
+                        width: "28%",
+                        maxWidth: "100%",
+                        position: "relative",
+
+                        transform: "translate(122%)",
+                      }}
+                    >
                       <Form.Label>قیمت</Form.Label>
                       <Form.Control
                         type="number"
