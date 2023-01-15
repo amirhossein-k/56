@@ -202,11 +202,10 @@ const Datatable = ({ setDatas, datas }) => {
   }, [dispatch, successDelete]);
   useEffect(() => {
     dispatch(listProductAction());
-    setIsOpens(false)
+    setIsOpens(false);
   }, [update]);
   return (
     <>
-      <Link to="/dashboard/products">Cancel</Link>
       <Box sx={{ height: 400, width: "100%" }}>
         {(() => {
           if (product) {
