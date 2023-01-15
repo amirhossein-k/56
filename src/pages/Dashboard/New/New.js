@@ -20,6 +20,9 @@ const New = () => {
   const [pic, setPic] = useState("");
   const [status, setStatus] = useState("");
   const [price, setPrice] = useState("");
+  const [loade, setLoade] = useState(false);
+  const [sucessprop, setSucessprop] = useState(false);
+  const [errorPic, setErrorPic] = useState(false);
 
   ////////////////////////
   let navigate = useNavigate();
@@ -27,14 +30,16 @@ const New = () => {
   const dispatch = useDispatch();
   //////////////////////
   const productcrate = useSelector((state) => state.productCreate);
-  const { loading } = productcrate;
+  const { loading, success } = productcrate;
   /////////////////////
+  useEffect(() => {}, [pic, loade]);
   useEffect(() => {
-    // if (userInfo) {
-    //   navigate("/product");
-    // }
-    console.log("loading", loading);
-  }, [fileInput, pic, loading]);
+    if (success === true) {
+      dispatch(createProductAction());
+      navigate("/dashboard/products");
+    }
+  }, [success]);
+
   //////////////////////////
   const postDetails = (pics) => {
     if (
@@ -42,6 +47,8 @@ const New = () => {
       pics.type === "image/png" ||
       pics.type === "image/jpg"
     ) {
+      setLoade(true);
+
       const data = new FormData();
       data.append("file", pics);
       data.append("upload_preset", "notezipper");
@@ -49,11 +56,6 @@ const New = () => {
       ///////
       console.log(fileInput.current.files);
 
-      // setTimeout(() => {
-      //   setDisable(false);
-      //   console.log(fileInput.current.files, "toye tttt");
-      // }, 5000);
-      /////
       fetch("https://api.cloudinary.com/v1_1/dijamrzud/image/upload", {
         method: "post",
         body: data,
@@ -61,6 +63,8 @@ const New = () => {
         .then((res) => res.json())
         .then((data) => {
           setPic(data.url.toString());
+          setLoade(false);
+          setErrorPic(false);
         })
         .catch((err) => console.log(err));
     } else {
@@ -72,8 +76,11 @@ const New = () => {
     setNameCar("");
     setFactory("");
     setDistance("");
+    setStatus(null);
+    setPrice("");
 
-    setSkills([null]);
+    setSkills((prevskill) => prevskill.splice(0, prevskill.length));
+    // setSkills([null]);
     fileInput.current.value = null;
     setPic("");
   };
@@ -81,20 +88,22 @@ const New = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!namecar || !factory || !distance || !skills) return;
-    dispatch(
-      createProductAction(
-        namecar,
-        factory,
-        distance,
-        skills,
-        pic,
-        price,
-        status
-      )
-    );
-    resetHandler();
-    // navigate("/dashboard");
-    console.log(status);
+    if (pic === undefined || pic === null || pic === "") {
+      setErrorPic(true);
+    } else {
+      dispatch(
+        createProductAction(
+          namecar,
+          factory,
+          distance,
+          skills,
+          pic,
+          price,
+          status
+        )
+      );
+      resetHandler();
+    }
   };
 
   ///////////////
@@ -125,6 +134,7 @@ const New = () => {
         <div className="bottom-new">
           {/* <img src={pic} className="imgproduct" /> */}
           <img src={pic ? pic : null} className="imgproduct" />
+          {errorPic && <p>عکس انتخاب کنید</p>}
           <Form className="formfix" onSubmit={submitHandler}>
             <div className="form-0">
               <Form.Group controlId="pic">
@@ -170,38 +180,55 @@ const New = () => {
               </Form.Group>
               {/* //// */}
             </div>
-            <div className="form-2">
-              {/* //// */}
-              {/* <Form.Group controlId="formControlsTextarea">
-              <Form.Label>نام خودرو</Form.Label>
-              <Form.Control componentClass="textarea" value={propertys}
-                placeholder="ویژگی"
-                onChange={e=> setPropertys(e.target.value)} />
-            </Form.Group> */}
-              {/* //// */}
-              <TagsInput
-                value={skills}
-                onChange={setSkills}
-                name="fruits"
-                placeHolder="ویژگی"
-              />
-              {/* //////statsu///// */}
-              <FormControls sx={{ m: 1, minWidth: 120 }} size="small">
-                <InputLabel id="demo-select-small">وضعیت</InputLabel>
-                <Select
-                  labelId="demo-select-small"
-                  id="demo-select-small"
-                  value={status}
-                  label="وضعیت"
-                  onChange={(e) => setStatus(e.target.value)}
+            <div className="form-2 row">
+              <Col md={5} lg={4}>
+                <TagsInput
+                  value={skills}
+                  onChange={setSkills}
+                  // name="skills"
+                  placeHolder="ویژگی"
+                />
+              </Col>
+              <Col>
+                <FormControls sx={{ m: 1, minWidth: 120 }} size="small">
+                  <InputLabel id="demo-select-small">وضعیت</InputLabel>
+                  <Select
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    value={status}
+                    label="وضعیت"
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <MenuItem value={"null"}></MenuItem>
+                    <MenuItem value={"approved"}>موجود</MenuItem>
+                    <MenuItem value={"sold"}>ناموجود</MenuItem>
+                  </Select>
+                </FormControls>
+              </Col>
+              <Col>
+                <Form.Group
+                  controlId="price"
+                  style={{ alignItems: "center", display: "flex" }}
                 >
-                  <MenuItem value={"approved"}>موجود</MenuItem>
-                  <MenuItem value={"sold"}>ناموجود</MenuItem>
-                </Select>
-              </FormControls>
+                  <Form.Label style={{ paddingRight: 5 }}>قیمت</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={price}
+                    placeholder="قیمت"
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+
+              {/* //////statsu///// */}
             </div>
+
             <div className="button-new">
-              <Button type="submit" variant="primary" className="create-new">
+              <Button
+                type="submit"
+                variant="primary"
+                className={`${loade === true ? "disabled" : "create-new"}`}
+              >
                 Create Note
               </Button>
               <Button className="mx-2" onClick={resetHandler} variant="danger">

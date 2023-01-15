@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 
 import styles from "./modal.module.scss";
 import { RiCloseLine } from "react-icons/ri";
@@ -11,9 +11,10 @@ import { TagsInput } from "react-tag-input-component";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProductAction } from "../../../actions/productActions";
+
 ///////////////////////////
 const Modal = ({
-  setIsOpen,
+  setIsOpens,
   updatehandle,
   isid,
   price,
@@ -35,19 +36,23 @@ const Modal = ({
   setUrlpic,
   setOpenpic,
   openpic,
-  isOpen,
+  isOpens,
   setLoadupdate,
   loadupdate,
+  setUpdate,
 }) => {
   ////////////////////////
+
+  //////////////////////////
   let navigate = useNavigate();
   const fileInput = useRef(null);
   const dispatch = useDispatch();
   ///////////////
   const productupdate = useSelector((state) => state.productUpdate);
-  const { loading: loadingUpdate, success: successUpdate } = productupdate;
+  const { loading, success } = productupdate;
   //////////////
   const [loadpic, setLoadpic] = useState(false);
+  const [load, setLoad] = useState(false);
   const postDetails = (pics) => {
     if (
       pics.type === "image/jpeg" ||
@@ -61,12 +66,6 @@ const Modal = ({
       data.append("cloud_name", "dijamrzud");
       ///////
       console.log(fileInput.current.files);
-
-      // setTimeout(() => {
-      //   setDisable(false);
-      //   console.log(fileInput.current.files, "toye tttt");
-      // }, 5000);
-      /////
 
       fetch("https://api.cloudinary.com/v1_1/dijamrzud/image/upload", {
         method: "post",
@@ -92,8 +91,10 @@ const Modal = ({
     fileInput.current.value = null;
     setPic("");
   };
-  //////////////
+
+  ////////////////
   const submitHandler = (e) => {
+    setLoad(true);
     e.preventDefault();
     if (!namecar || !factory || !distance || !skills) return;
 
@@ -111,25 +112,35 @@ const Modal = ({
     );
 
     resetHandler();
-    setIsOpen(false);
+    // setUpdate(true)
   };
+
   const handleclose = () => {
-    setIsOpen(false);
+    setIsOpens(false);
     // setOpenpic(false);
   };
-  useEffect(() => {}, [successUpdate]);
+  /////////////
+  // useEffect(() => {
+  //   if (loading === false) {
+  //     navigate("/dashboard/products");
+  //   }
+  // }, [loading]);
+  useEffect(() => {
+    if (success === true) {
+      dispatch(updateProductAction());
+      setUpdate(true);
+    }
+  }, [success]);
+
   return (
     <>
-      <div className={styles.darkBG} onClick={() => handleclose()} />
+      <div className={styles.darkBG} />
       <div className={styles.centered}>
         <div className={styles.modal}>
-          {/* <div className={styles.modalHeader}>
-            <h5 className={styles.heading}>Dialog</h5>
-          </div> */}
           <button className={styles.closeBtn} onClick={() => handleclose()}>
             <RiCloseLine style={{ marginBottom: "-3px" }} />
           </button>
-          {isOpen && (
+          {isOpens && (
             <div className={styles.modalContent}>
               <div className="top">
                 <h1>Add New Product</h1>
@@ -190,18 +201,10 @@ const Modal = ({
                     {/* //// */}
                   </div>
                   <div className="form-2">
-                    {/* //// */}
-                    {/* <Form.Group controlId="formControlsTextarea">
-              <Form.Label>نام خودرو</Form.Label>
-              <Form.Control componentClass="textarea" value={propertys}
-                placeholder="ویژگی"
-                onChange={e=> setPropertys(e.target.value)} />
-            </Form.Group> */}
-                    {/* //// */}
                     <TagsInput
                       value={skills}
                       onChange={setSkills}
-                      name="fruits"
+                      name="skills"
                       placeHolder="ویژگی"
                     />
                     {/* //////statsu///// */}
@@ -214,10 +217,20 @@ const Modal = ({
                         label="وضعیت"
                         onChange={(e) => setStatus(e.target.value)}
                       >
+                        <MenuItem value={"null"}></MenuItem>
                         <MenuItem value={"approved"}>موجود</MenuItem>
                         <MenuItem value={"sold"}>ناموجود</MenuItem>
                       </Select>
                     </FormControls>
+                    <Form.Group controlId="price" style={{ width: "20%" }}>
+                      <Form.Label>قیمت</Form.Label>
+                      <Form.Control
+                        type="number"
+                        value={price}
+                        placeholder="قیمت"
+                        onChange={(e) => setPrice(e.target.value)}
+                      />
+                    </Form.Group>
                   </div>
                   <div className="button-new">
                     <Button
@@ -226,7 +239,6 @@ const Modal = ({
                       className={`create-new ${
                         loadpic ? "disabled" : "inline-block"
                       }`}
-                      // onClick={(e) => submitHandler(e)}
                     >
                       اپدیت
                     </Button>
@@ -242,7 +254,7 @@ const Modal = ({
               </div>
             </div>
           )}
-          {isOpen && (
+          {isOpens && (
             <div className={styles.modalContent}>
               <img src={urlpic} style={{ width: 200 }} />
             </div>

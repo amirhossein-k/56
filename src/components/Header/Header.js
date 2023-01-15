@@ -63,12 +63,12 @@ const Header = ({ userInfo }) => {
 
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" id="navbar">
         <Container fluid>
-          <Navbar.Brand href="#home">اتو امیر</Navbar.Brand>
+          <Navbar.Brand href="/">اتو امیر</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#features">صفحه اصلی</Nav.Link>
-              <Nav.Link href="#pricing">درباره ما</Nav.Link>
+              <Nav.Link href="/">صفحه اصلی</Nav.Link>
+              <Nav.Link href="/about">درباره ما</Nav.Link>
             </Nav>
             {userInfo ? (
               <NavDropdown

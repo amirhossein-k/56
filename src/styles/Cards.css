@@ -5,6 +5,10 @@
   background-color: rgb(255, 255, 255);
   box-shadow: 1px 1px 5px 1px rgba(134, 129, 129, 0.5);
 }
+.pruduct:hover {
+  box-shadow: 1px 1px 5px 3px rgba(134, 129, 129, 0.5);
+  cursor: pointer;
+}
 .name {
   grid-row: span 1;
   font-size: 19px;
@@ -13,6 +17,7 @@
   line-height: 100%;
   padding-top: 8px;
   text-transform: uppercase;
+  padding: 11px 0 0 22px;
 }
 catagory {
   margin-left: 10px;

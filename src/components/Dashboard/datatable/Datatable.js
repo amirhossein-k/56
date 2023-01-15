@@ -1,6 +1,12 @@
 import "./datatable.scss";
 
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   listProductAction,
@@ -22,13 +28,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SyncIcon from "@mui/icons-material/Sync";
 import Modal from "../modal/Modal";
 import ModalImages from "../modal/ModalImages";
+import { Link } from "react-router-dom";
 // ......................................................
 import ModalImage from "react-modal-image";
 //.......................................................
 
-const Datatable = () => {
-  const [rows, setRows] = useState([]);
-
+const Datatable = ({ setDatas, datas }) => {
   const deleteUser = React.useCallback(
     (id: GridRowId) => () => {
       setTimeout(() => {
@@ -106,7 +111,6 @@ const Datatable = () => {
           icon={<SyncIcon />}
           label="Toggle Admin"
           onClick={() => openhandle(params.id)}
-          showInMenu
         />,
       ],
     },
@@ -117,6 +121,9 @@ const Datatable = () => {
   const productList = useSelector((state) => state.productList);
   const { product, loading } = productList;
   /////////////
+  //  const productUpdate = useSelector((state) => state.productUpdate);
+  //   const { product, loading } = productUpdate;
+  //////////////
   const productDelete = useSelector((state) => state.productDelete);
   const {
     success: successDelete,
@@ -124,11 +131,12 @@ const Datatable = () => {
     error: errorDelete,
   } = productDelete;
   ////////////
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpens, setIsOpens] = useState(false);
   const [isid, setIsId] = useState("");
   const [urlpic, setUrlpic] = useState("");
   const [openpic, setOpenpic] = useState(false);
   const [loadupdate, setLoadupdate] = useState(false);
+  const [update, setUpdate] = useState(false);
   /////////////////
   const [pr, setPer] = useState([]);
   const [produc, setProduc] = useState([]);
@@ -149,12 +157,12 @@ const Datatable = () => {
 
   /////////
   const openhandle = (me) => {
-    setIsOpen(true);
+    setIsOpens(true);
     setIsId(me);
     var result = product.find(({ id }) => id === me);
-    console.log(result, "bad resultsave");
+    console.log(isOpens, "isopen");
     setNameCar(result.namecar);
-    console.log(isid, "bad save");
+
     setFactory(result.factory);
     setDistance(result.distance);
     setSkills(result.skills);
@@ -162,6 +170,7 @@ const Datatable = () => {
     setStatus(result.status);
     setPrice(result.price);
   };
+
   const habdlepic = React.useCallback(
     (pic: GridRowPic) => () => {
       setTimeout(() => {
@@ -190,9 +199,14 @@ const Datatable = () => {
       console.log("amad");
       setPer(product);
     }
-  }, [dispatch, successDelete, loadupdate]);
+  }, [dispatch, successDelete]);
+  useEffect(() => {
+    dispatch(listProductAction());
+    setIsOpens(false)
+  }, [update]);
   return (
     <>
+      <Link to="/dashboard/products">Cancel</Link>
       <Box sx={{ height: 400, width: "100%" }}>
         {(() => {
           if (product) {
@@ -212,9 +226,9 @@ const Datatable = () => {
           }
         })()}
       </Box>
-      {isOpen && (
+      {isOpens && (
         <Modal
-          setIsOpen={setIsOpen}
+          setIsOpens={setIsOpens}
           updatehandle={updatehandle}
           isid={isid}
           price={price}
@@ -231,9 +245,10 @@ const Datatable = () => {
           setPic={setPic}
           setStatus={setStatus}
           setPrice={setPrice}
-          isOpen={isOpen}
+          isOpens={isOpens}
           setLoadupdate={setLoadupdate}
           loadupdate={loadupdate}
+          setUpdate={setUpdate}
         />
       )}
       {openpic && (
