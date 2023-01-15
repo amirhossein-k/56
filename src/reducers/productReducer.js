@@ -5,12 +5,13 @@ import {
   PROUCT_CREATE_REQUEST,
   PROUCT_CREATE_SUCCESS,
   PROUCT_CREATE_FAIL,
+  PROUCT_CREATE_NULL,
   PROUCT_DELETE_REQUEST,
   PROUCT_DELETE_SUCCESS,
   PROUCT_DELETE_FAIL,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
-  PRODUCT_UPDATE_FAIL
+  PRODUCT_UPDATE_FAIL,
 } from "../constants/productConstant";
 
 export const productCreateReducer = (state = {}, action) => {
@@ -21,6 +22,8 @@ export const productCreateReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case PROUCT_CREATE_FAIL:
       return { loading: false, error: action.payload };
+    case PROUCT_CREATE_NULL:
+      return { loading: false, success: false };
     default:
       return state;
   }

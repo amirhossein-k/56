@@ -22,6 +22,7 @@ const New = () => {
   const [price, setPrice] = useState("");
   const [loade, setLoade] = useState(false);
   const [sucessprop, setSucessprop] = useState(false);
+  const [errorPic, setErrorPic] = useState(false);
 
   ////////////////////////
   let navigate = useNavigate();
@@ -31,19 +32,14 @@ const New = () => {
   const productcrate = useSelector((state) => state.productCreate);
   const { loading, success } = productcrate;
   /////////////////////
+  useEffect(() => {}, [pic, loade]);
   useEffect(() => {
-    localStorage.setItem("setnew", "true");
-    if(success ===true){
-      navigate('/dashboard/products')
-    }(()
-  }, [success, productcrate]);
-  // useEffect(() => {
-  //   setSucessprop(undefined);
+    if (success === true) {
+      dispatch(createProductAction());
+      navigate("/dashboard/products");
+    }
+  }, [success]);
 
-  //   if (sucessprop === true) {
-  //     setSucessprop(undefined);
-  //   }
-  // }, [sucessprop]);
   //////////////////////////
   const postDetails = (pics) => {
     if (
@@ -51,6 +47,8 @@ const New = () => {
       pics.type === "image/png" ||
       pics.type === "image/jpg"
     ) {
+      setLoade(true);
+
       const data = new FormData();
       data.append("file", pics);
       data.append("upload_preset", "notezipper");
@@ -58,11 +56,6 @@ const New = () => {
       ///////
       console.log(fileInput.current.files);
 
-      // setTimeout(() => {
-      //   setDisable(false);
-      //   console.log(fileInput.current.files, "toye tttt");
-      // }, 5000);
-      /////
       fetch("https://api.cloudinary.com/v1_1/dijamrzud/image/upload", {
         method: "post",
         body: data,
@@ -70,6 +63,8 @@ const New = () => {
         .then((res) => res.json())
         .then((data) => {
           setPic(data.url.toString());
+          setLoade(false);
+          setErrorPic(false);
         })
         .catch((err) => console.log(err));
     } else {
@@ -81,8 +76,11 @@ const New = () => {
     setNameCar("");
     setFactory("");
     setDistance("");
+    setStatus(null);
+    setPrice("");
 
-    setSkills([null]);
+    setSkills((prevskill) => prevskill.splice(0, prevskill.length));
+    // setSkills([null]);
     fileInput.current.value = null;
     setPic("");
   };
@@ -90,20 +88,22 @@ const New = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!namecar || !factory || !distance || !skills) return;
-    dispatch(
-      createProductAction(
-        namecar,
-        factory,
-        distance,
-        skills,
-        pic,
-        price,
-        status
-      )
-    );
-    resetHandler();
-    // navigate("/dashboard");
-    console.log(status);
+    if (pic === undefined || pic === null || pic === "") {
+      setErrorPic(true);
+    } else {
+      dispatch(
+        createProductAction(
+          namecar,
+          factory,
+          distance,
+          skills,
+          pic,
+          price,
+          status
+        )
+      );
+      resetHandler();
+    }
   };
 
   ///////////////
@@ -134,6 +134,7 @@ const New = () => {
         <div className="bottom-new">
           {/* <img src={pic} className="imgproduct" /> */}
           <img src={pic ? pic : null} className="imgproduct" />
+          {errorPic && <p>عکس انتخاب کنید</p>}
           <Form className="formfix" onSubmit={submitHandler}>
             <div className="form-0">
               <Form.Group controlId="pic">
@@ -198,6 +199,7 @@ const New = () => {
                     label="وضعیت"
                     onChange={(e) => setStatus(e.target.value)}
                   >
+                    <MenuItem value={"null"}></MenuItem>
                     <MenuItem value={"approved"}>موجود</MenuItem>
                     <MenuItem value={"sold"}>ناموجود</MenuItem>
                   </Select>
@@ -222,7 +224,11 @@ const New = () => {
             </div>
 
             <div className="button-new">
-              <Button type="submit" variant="primary" className="create-new">
+              <Button
+                type="submit"
+                variant="primary"
+                className={`${loade === true ? "disabled" : "create-new"}`}
+              >
                 Create Note
               </Button>
               <Button className="mx-2" onClick={resetHandler} variant="danger">

@@ -108,6 +108,8 @@ const Modal = ({
         price,
         status
       )
+    
+    setTimeout(() => {navigate('/dashboard/product')}, 1500); 
     );
 
     resetHandler();
@@ -194,14 +196,7 @@ const Modal = ({
                     {/* //// */}
                   </div>
                   <div className="form-2">
-                    {/* //// */}
-                    {/* <Form.Group controlId="formControlsTextarea">
-              <Form.Label>نام خودرو</Form.Label>
-              <Form.Control componentClass="textarea" value={propertys}
-                placeholder="ویژگی"
-                onChange={e=> setPropertys(e.target.value)} />
-            </Form.Group> */}
-                    {/* //// */}
+                 
                     <TagsInput
                       value={skills}
                       onChange={setSkills}
@@ -218,6 +213,7 @@ const Modal = ({
                         label="وضعیت"
                         onChange={(e) => setStatus(e.target.value)}
                       >
+                         <MenuItem value={"null"}></MenuItem>
                         <MenuItem value={"approved"}>موجود</MenuItem>
                         <MenuItem value={"sold"}>ناموجود</MenuItem>
                       </Select>
@@ -239,7 +235,7 @@ const Modal = ({
                       className={`create-new ${
                         loadpic ? "disabled" : "inline-block"
                       }`}
-                      // onClick={(e) => submitHandler(e)}
+                    
                     >
                       اپدیت
                     </Button>
