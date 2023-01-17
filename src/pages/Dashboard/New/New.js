@@ -17,7 +17,8 @@ const New = () => {
   const [distance, setDistance] = useState("");
 
   const [skills, setSkills] = useState([]);
-  const [pic, setPic] = useState("");
+  const [pic, setPic] = useState([]);
+  let nextId = 0;
   const [status, setStatus] = useState("");
   const [price, setPrice] = useState("");
   const [loade, setLoade] = useState(false);
@@ -32,7 +33,7 @@ const New = () => {
   const productcrate = useSelector((state) => state.productCreate);
   const { loading, success } = productcrate;
   /////////////////////
-  useEffect(() => {}, [pic, loade]);
+  useEffect(() => {}, [loade]);
   useEffect(() => {
     if (success === true) {
       dispatch(createProductAction());
@@ -50,23 +51,31 @@ const New = () => {
       setLoade(true);
 
       const data = new FormData();
-      data.append("file", pics);
-      data.append("upload_preset", "notezipper");
-      data.append("cloud_name", "dijamrzud");
-      ///////
-      console.log(fileInput.current.files);
 
-      fetch("https://api.cloudinary.com/v1_1/dijamrzud/image/upload", {
-        method: "post",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setPic(data.url.toString());
-          setLoade(false);
-          setErrorPic(false);
+      ///////
+      const files = fileInput.current.files;
+
+      for (const [key, value] of Object.entries(files)) {
+        data.append("file", value);
+        data.append("upload_preset", "notezipper");
+        data.append("cloud_name", "dijamrzud");
+
+        fetch("https://api.cloudinary.com/v1_1/dijamrzud/image/upload", {
+          method: "post",
+          body: data,
         })
-        .catch((err) => console.log(err));
+          .then((res) => res.json())
+          .then((data) => {
+            // setPic([...pic, data.url.toString()]);
+            // oldArray => [...oldArray, newElement]
+            setPic((oldpic) => [...oldpic, data.url.toString()]);
+            setLoade(false);
+            setErrorPic(false);
+            console.log("pic", pic);
+          })
+          .catch((err) => console.log(err));
+        console.log("pic", pic);
+      }
     } else {
       return null;
     }
@@ -105,7 +114,7 @@ const New = () => {
       resetHandler();
     }
   };
-
+  console.log("pic", pic);
   ///////////////
 
   return (
@@ -114,7 +123,7 @@ const New = () => {
       <Col sm={12} md={2} lg={1} className="fixlistnavbar">
         <Sidebar />
       </Col>
-      {/* /////////Container//////// */}
+      {/* /////////Container//////// */}{" "}
       <Col className="newContainer">
         <div className="top">
           <h1>Add New Product</h1>
@@ -132,8 +141,17 @@ const New = () => {
 
         {/* ///// end top ////// */}
         <div className="bottom-new">
-          {/* <img src={pic} className="imgproduct" /> */}
-          <img src={pic ? pic : null} className="imgproduct" />
+          <div className="row">
+            {pic.map((item, index) => {
+              console.log(item);
+              return (
+                <Col sm={12} md={4} lg={3}>
+                  <img src={item} alt="" key={index} className="imgproduct" />
+                </Col>
+              );
+            })}
+          </div>
+
           {errorPic && <p>عکس انتخاب کنید</p>}
           <Form className="formfix" onSubmit={submitHandler}>
             <div className="form-0">
@@ -144,6 +162,8 @@ const New = () => {
                   // onChange={(e) => setPics(e.target.files[0])}
                   onChange={(e) => postDetails(e.target.files[0])}
                   ref={fileInput}
+                  multiple
+                  accept=".jpeg, .png, .jpg"
                 />
               </Form.Group>
             </div>
