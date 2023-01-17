@@ -8,17 +8,25 @@ import kilo_logo from "../../public/kilo.svg";
 import axios from "axios";
 // import { useDispatch, useSelector } from "react-redux";
 // import { listProductAction } from "../../actions/productActions";
+import { useNavigate, generatePath, Link } from "react-router-dom";
 
 const Cards = ({ product, loading }) => {
   // const dispatch = useDispatch();
+  const [Id, setId] = useState(null);
 
+  const navigate = useNavigate();
+  const transferhandler = (itemid) => {};
   return (
     <>
       {loading && <h1>درحال خواندن دیتا هستیم منتظر بمانید</h1>}
       {!loading &&
         product.map((item) => {
           return (
-            <Card className="pruduct" key={item.id}>
+            <Card
+              className="pruduct"
+              key={item.id}
+              onClick={(e) => navigate(`/products/${item.id}`)}
+            >
               <Card.Img
                 variant="top"
                 alt=""
@@ -45,6 +53,10 @@ const Cards = ({ product, loading }) => {
                   {item.distance}
                 </Card.Text>
               </Card.Body>
+              <div class="card-footer">
+                {/* <small class="text-muted">Last updated 3 mins ago</small> */}
+                {/* <Link to={`/products/${item.id}`}></Link> */}
+              </div>
             </Card>
           );
         })}

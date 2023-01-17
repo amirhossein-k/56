@@ -11,7 +11,7 @@ import HomeDashboard from "./pages/Dashboard/Home/Home";
 // import Login from "./pages/Dashboard/Login/Login";
 import List from "./pages/Dashboard/List/List";
 import New from "./pages/Dashboard/New/New";
-import Single from "./pages/Dashboard/Single/Single";
+import Single from "./pages/Single/Single";
 import ProtectedRoute from "./components/protect/ProtectedRoute";
 ///////////////
 export default function App() {
@@ -31,12 +31,13 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home userInfo={userInfo} />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/products/:productId" element={<Single />} />
         <Route element={<ProtectedRoute userInfo={userInfo} />}>
           <Route path="/dashboard">
             <Route index element={<HomeDashboard />} />
             <Route path="products">
               <Route index element={<List />} />
-              <Route path=":productId" element={<Single />} />
+              {/* <Route path=":productId" element={<Single />} /> */}
               <Route path="new" element={<New />} />
             </Route>
           </Route>
