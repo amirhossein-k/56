@@ -16,10 +16,11 @@ const Cards = ({ product, loading }) => {
 
   const navigate = useNavigate();
   const transferhandler = (itemid) => {};
+  console.log(product, "product");
   return (
     <>
       {loading && <h1>درحال خواندن دیتا هستیم منتظر بمانید</h1>}
-      {!loading &&
+      {product &&
         product.map((item) => {
           return (
             <Card

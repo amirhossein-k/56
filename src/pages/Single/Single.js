@@ -24,24 +24,24 @@ const Single = () => {
       <HeaderChild />
       <Row className="image-slider-top">
         <Fade>
-          <div className="each-slide">
+          {/* <div className="each-slide">
             <div>
-              <img src={images[0]} />
+              <img src={images[0]} alt="" />
             </div>
             <p>First Slide</p>
           </div>
           <div className="each-slide">
             <p>Second Slide</p>
             <div>
-              <img src={images[1]} />
+              <img src={images[1]} alt="" />
             </div>
           </div>
           <div className="each-slide">
             <div>
-              <img src={images[2]} />
+              <img src={images[2]} alt="" />
             </div>
             <p>Third Slide</p>
-          </div>
+          </div> */}
         </Fade>
       </Row>
       <Row className="details"></Row>

@@ -14,7 +14,7 @@ const Home = ({ userInfo }) => {
 
   const productList = useSelector((state) => state.productList);
   const { product, loading } = productList;
-
+  useEffect(() => {}, [product, loading]);
   const fetch = useMemo(() => {
     dispatch(listProductAction());
   }, []);
