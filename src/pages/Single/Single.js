@@ -5,7 +5,10 @@ import HeaderChild from "../../components/Header/HeaderChild";
 import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getPrdoductAction,listProductAction } from "../../actions/productActions";
+import {
+  getPrdoductAction,
+  listProductAction,
+} from "../../actions/productActions";
 import { useParams } from "react-router-dom";
 import {
   Card,
@@ -17,6 +20,9 @@ import {
   Row,
 } from "react-bootstrap";
 const Single = () => {
+  const [pics, setPics] = useState([]);
+  const [key, setKey] = useState([]);
+  const [value, setValue] = useState([]);
   const dispatch = useDispatch();
   const { productId } = useParams();
   console.log(productId, "id");
@@ -24,7 +30,23 @@ const Single = () => {
     dispatch(getPrdoductAction(productId));
   }, []);
   const product = useSelector((state) => state.productGet);
-  if (product) {
+  const { data, success, loading } = product;
+
+  useEffect(() => {
+    if (success === true) {
+      for (const [key, value] of Object.entries(data)) {
+        console.log("key", key);
+        console.log("key yype", typeof key);
+        setKey((prevkey) => [...prevkey, key]);
+        setValue((prevvalue) => [...prevvalue, value]);
+        if (key === "pic") {
+          setPics(value);
+          console.log(pics, "pics");
+        }
+      }
+    }
+  }, [success, data]);
+  if (data) {
     console.log(product);
   }
   const images = [
@@ -37,27 +59,37 @@ const Single = () => {
       <HeaderChild />
       <Row className="image-slider-top">
         <Fade>
-          <div className="each-slide">
-            <div>
-              <img src={images[0]} alt="" />
+          {success === true ? (
+            pics.map((item, index) => {
+              console.log(typeof item);
+              console.log(item);
+              return (
+                <div className="each-slide">
+                  <div className="each-slide-child">
+                    <img src={item} alt="" className="img-sidebar" />
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div className="each-slide">
+              <div className="each-slide-child">
+                <img src={images[0]} alt="" className="img-sidebar" />
+                <p>خالی</p>
+              </div>
             </div>
-            <p>First Slide</p>
-          </div>
-          <div className="each-slide">
-            <p>Second Slide</p>
-            <div>
-              <img src={images[1]} alt="" />
-            </div>
-          </div>
-          <div className="each-slide">
-            <div>
-              <img src={images[2]} alt="" />
-            </div>
-            <p>Third Slide</p>
-          </div>
+          )}
         </Fade>
       </Row>
-      <Row className="details"></Row>
+      <Row className="details">
+        {key &&
+          key.map((item, index) => {
+            <Row>
+              <Col>{item[index]}</Col>
+              <Col>{value[index]}</Col>
+            </Row>;
+          })}
+      </Row>
       <Row className="image-slider-bottom"></Row>
     </Container>
   );

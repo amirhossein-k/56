@@ -63,7 +63,7 @@ export const productGetReducer = (state = {}, action) => {
     case PRODUCT_GET_REQUEST:
       return { loading: true };
     case PRODUCT_GET_SUCCESS:
-      return { loading: false, success: true };
+      return { loading: false, success: true, data: action.payload };
     case PRODUCT_GET_FAIL:
       return { loading: false, error: action.payload, success: false };
     case PROUCT_GET_NULL:

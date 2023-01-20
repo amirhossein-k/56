@@ -131,7 +131,7 @@ export const getPrdoductAction = (id) => async (dispatch, getState) => {
       };
 
       const { data } = await axios.get(
-        `https://4oqwur-9000.preview.csb.app/api/product/${id}`,
+        `https://backend-site-asll.vercel.app/api/product/${id}`,
         { id },
         config
       );
