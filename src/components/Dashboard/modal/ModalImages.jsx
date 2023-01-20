@@ -10,13 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 ///////////////////////////
 const ModalImages = ({
-  setIsOpen,
-
   urlpic,
-  setUrlpic,
+
   setOpenpic,
-  openpic,
-  isOpen,
 }) => {
   ////////////////////////
   let navigate = useNavigate();
@@ -28,15 +24,12 @@ const ModalImages = ({
     // setIsOpen(false);
     setOpenpic(false);
   };
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
   return (
     <>
       <div className={styles.darkBG} onClick={() => handleclose()} />
       <div className={styles.centered}>
         <div className={styles.modal}>
-          {/* <div className={styles.modalHeader}>
-            <h5 className={styles.heading}>Dialog</h5>
-          </div> */}
           <button className={styles.closeBtn} onClick={() => handleclose()}>
             <RiCloseLine style={{ marginBottom: "-3px" }} />
           </button>
@@ -44,24 +37,9 @@ const ModalImages = ({
           <div className={styles.modalContent}>
             <img src={urlpic} style={{ width: "100%" }} />
           </div>
-          {/* <div className={styles.modalActions}>
-            <div className={styles.actionsContainer}>
-              <button
-                className={styles.deleteBtn}
-                onClick={() => setIsOpen(false)}
-              >
-                Delete
-              </button>
-              <button
-                className={styles.cancelBtn}
-                onClick={() => setIsOpen(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div> */}
         </div>
       </div>
+      <p>hugghguhhih</p>
     </>
   );
 };

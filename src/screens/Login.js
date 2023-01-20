@@ -7,6 +7,13 @@ import axios from "axios";
 import "../styles/Login.css";
 import { login } from "../actions/userActions";
 //////////////////////////////////////
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+// modal
+import ReactLoading from "react-loading";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,11 +27,19 @@ const Login = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
   //////////
+  // modal
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  ///////////
   useEffect(() => {
     if (userInfo) {
       navigate("/dashboard");
     }
   }, [navigate, userInfo]);
+  useEffect(() => {
+    dispath(login());
+  }, []);
   /////
   const submithandler = async (e) => {
     e.preventDefault();
@@ -33,6 +48,16 @@ const Login = () => {
   };
   return (
     <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
+      {loading && (
+        <div className="loading">
+          <ReactLoading
+            type={"bubbles"}
+            color="#fff"
+            height={"100%"}
+            width={"100%"}
+          />
+        </div>
+      )}
       <Row style={{ marginRight: 0, paddingRight: 0, minHeight: "100vh" }}>
         <Col xs={12} sm={6} style={{ padding: 0 }}>
           <div className="carlogin-img">
