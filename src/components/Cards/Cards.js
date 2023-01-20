@@ -31,7 +31,7 @@ const Cards = ({ product, loading }) => {
               <Card.Img
                 variant="top"
                 alt=""
-                src={`${item.pic}`}
+                src={`${item.pic[0]}`}
                 style={{ height: "-webkit-fill-available" }}
               />
               <Card.Title className="name">{item.namecar}</Card.Title>

@@ -13,6 +13,10 @@ import {
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
   PROUCT_UPDATE_NULL,
+  PRODUCT_GET_REQUEST,
+  PRODUCT_GET_SUCCESS,
+  PRODUCT_GET_FAIL,
+  PROUCT_GET_NULL,
 } from "../constants/productConstant";
 
 export const productCreateReducer = (state = {}, action) => {
@@ -50,6 +54,20 @@ export const productDeleteReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case PROUCT_DELETE_FAIL:
       return { loading: false, error: action.payload, success: false };
+    default:
+      return state;
+  }
+};
+export const productGetReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_GET_REQUEST:
+      return { loading: true };
+    case PRODUCT_GET_SUCCESS:
+      return { loading: false, success: true, data: action.payload };
+    case PRODUCT_GET_FAIL:
+      return { loading: false, error: action.payload, success: false };
+    case PROUCT_GET_NULL:
+      return { loading: false, success: false };
     default:
       return state;
   }
