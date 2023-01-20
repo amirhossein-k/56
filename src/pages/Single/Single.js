@@ -1,9 +1,12 @@
 import "./single.scss";
-
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Dashboard/sidebar/Sidebar";
 import HeaderChild from "../../components/Header/HeaderChild";
 import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getPrdoductAction,listProductAction } from "../../actions/productActions";
+import { useParams } from "react-router-dom";
 import {
   Card,
   Container,
@@ -14,6 +17,16 @@ import {
   Row,
 } from "react-bootstrap";
 const Single = () => {
+  const dispatch = useDispatch();
+  const { productId } = useParams();
+  console.log(productId, "id");
+  useEffect(() => {
+    dispatch(getPrdoductAction(productId));
+  }, []);
+  const product = useSelector((state) => state.productGet);
+  if (product) {
+    console.log(product);
+  }
   const images = [
     "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
     "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
@@ -24,7 +37,7 @@ const Single = () => {
       <HeaderChild />
       <Row className="image-slider-top">
         <Fade>
-          {/* <div className="each-slide">
+          <div className="each-slide">
             <div>
               <img src={images[0]} alt="" />
             </div>
@@ -41,7 +54,7 @@ const Single = () => {
               <img src={images[2]} alt="" />
             </div>
             <p>Third Slide</p>
-          </div> */}
+          </div>
         </Fade>
       </Row>
       <Row className="details"></Row>

@@ -13,6 +13,10 @@ import {
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
   PROUCT_UPDATE_NULL,
+  PRODUCT_GET_REQUEST,
+  PRODUCT_GET_SUCCESS,
+  PRODUCT_GET_FAIL,
+  PROUCT_GET_NULL,
 } from "../constants/productConstant";
 import axios from "axios";
 
@@ -107,6 +111,40 @@ export const deleteProductAction = (id) => async (dispatch, getState) => {
         : error.message;
     dispatch({
       type: PROUCT_DELETE_FAIL,
+      payload: message,
+    });
+  }
+};
+export const getPrdoductAction = (id) => async (dispatch, getState) => {
+  try {
+    if (id === null || id === undefined) {
+      dispatch({ type: PROUCT_GET_NULL });
+    } else {
+      dispatch({
+        type: PRODUCT_GET_REQUEST,
+      });
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { data } = await axios.get(
+        `https://4oqwur-9000.preview.csb.app/api/product/${id}`,
+        { id },
+        config
+      );
+
+      dispatch({ type: PRODUCT_GET_SUCCESS, payload: data });
+    }
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: PRODUCT_GET_FAIL,
       payload: message,
     });
   }
