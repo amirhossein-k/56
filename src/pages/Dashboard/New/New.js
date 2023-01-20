@@ -33,7 +33,7 @@ const New = () => {
   const productcrate = useSelector((state) => state.productCreate);
   const { loading, success } = productcrate;
   /////////////////////
-  useEffect(() => {}, [loade]);
+  // useEffect(() => {}, [loade]);
   useEffect(() => {
     if (success === true) {
       dispatch(createProductAction());
@@ -91,7 +91,7 @@ const New = () => {
     setSkills((prevskill) => prevskill.splice(0, prevskill.length));
     // setSkills([null]);
     fileInput.current.value = null;
-    setPic("");
+    setPic((prevpic) => prevpic.splice(0, prevpic.length));
   };
   ///////////////
   const submitHandler = (e) => {
@@ -114,7 +114,7 @@ const New = () => {
       resetHandler();
     }
   };
-  console.log("pic", pic);
+  // console.log("pic", pic);
   ///////////////
 
   return (

@@ -31,11 +31,12 @@ import ModalImages from "../modal/ModalImages";
 import { Link } from "react-router-dom";
 // ......................................................
 import ModalImage from "react-modal-image";
+import { RiCloseLine } from "react-icons/ri";
 //.......................................................
 
 const Datatable = ({ setDatas, datas }) => {
   const deleteUser = React.useCallback(
-    (id: GridRowId) => () => {
+    (id) => () => {
       setTimeout(() => {
         setPer((prevRows) => prevRows.filter((row) => row.id !== id));
       });
@@ -43,7 +44,7 @@ const Datatable = ({ setDatas, datas }) => {
     []
   );
   //////////////////////////
-  const columns: GridColDef[] = [
+  const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
       field: "namecar",
@@ -72,9 +73,11 @@ const Datatable = ({ setDatas, datas }) => {
       editable: true,
       renderCell: (params) => (
         <img
-          src={params.value}
+          src={params.value[0]}
           className="img-table "
-          onClick={habdlepic(params.value)}
+          onClick={() => handlepic(params.value[0])}
+          // onClick={(e) => console.log(params.value[0])}
+          alt=""
         />
       ),
     },
@@ -172,7 +175,7 @@ const Datatable = ({ setDatas, datas }) => {
   };
 
   const habdlepic = React.useCallback(
-    (pic: GridRowPic) => () => {
+    (pic) => () => {
       setTimeout(() => {
         setUrlpic(pic);
         setOpenpic(true);
@@ -181,10 +184,13 @@ const Datatable = ({ setDatas, datas }) => {
     []
   );
   ////////
-
+  const handlepic = (pic) => {
+    setUrlpic(pic);
+    setOpenpic(true);
+  };
   /////////////
   const deletehandle = React.useCallback(
-    (id: GridRowId) => () => {
+    (id) => () => {
       setTimeout(() => {
         // setPer((prevRows) => prevRows.filter((row) => row.id !== id));
         dispatch(deleteProductAction(id));
@@ -204,6 +210,9 @@ const Datatable = ({ setDatas, datas }) => {
     dispatch(listProductAction());
     setIsOpens(false);
   }, [update]);
+  // useEffect(() => {
+  //   console.log(openpic);
+  // }, [openpic]);
   return (
     <>
       <Box sx={{ height: 400, width: "100%" }}>
@@ -251,13 +260,28 @@ const Datatable = ({ setDatas, datas }) => {
         />
       )}
       {openpic && (
-        <ModalImage
+        <ModalImages
           urlpic={urlpic}
           setUrlpic={setUrlpic}
           openpic={openpic}
           setOpenpic={setOpenpic}
         />
       )}
+      {/* {openpic && (
+        <div>
+          <div>
+            <div>
+              <button>
+                <RiCloseLine style={{ marginBottom: "-3px" }} />
+              </button>
+
+              <div>
+                <img src={urlpic} style={{ width: "100%" }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      )} */}
     </>
   );
 };
