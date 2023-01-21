@@ -1,5 +1,5 @@
 .image-slider-top{
-    padding-top:5px;
+    padding-top:13px;
     
 .each-slide-child{
              display: flex;
@@ -8,4 +8,29 @@
   background-size: cover;
 //   height: 250px;
         }
+}
+
+.details{
+  background-color:#ccc;
+  margin: 24px;
+  .row-child-detail{
+        padding: 5px;
+     background-color: #fbfbfb;
+    .col-child-detail{
+       
+       &.item{
+       background-color: #393939;
+    padding: 5px;
+    color: white;
+    }  
+       &.value{
+          background-color: rgb(74 74 75 / 87%);
+    padding: 5px;
+    color: white;
+    }  
+    }
+    &:hover{
+      background-color:#f9fdff36;
+    }
+  }
 }
