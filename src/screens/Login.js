@@ -32,14 +32,14 @@ const Login = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   ///////////
+  // useEffect(() => {
+  //   dispath(login());
+  // }, []);
   useEffect(() => {
     if (userInfo) {
       navigate("/dashboard");
     }
   }, [navigate, userInfo]);
-  useEffect(() => {
-    dispath(login());
-  }, []);
   /////
   const submithandler = async (e) => {
     e.preventDefault();

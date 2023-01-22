@@ -26,7 +26,7 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
-export const logout = () => async (dispatch) => {
+export const logoutReducer = () => async (dispatch) => {
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
 };
