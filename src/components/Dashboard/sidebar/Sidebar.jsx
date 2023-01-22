@@ -15,6 +15,8 @@ import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
+import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
+///////////////////////////////
 const Sidebar = () => {
   const [expantnav, setExpantnav] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -70,6 +72,11 @@ const Sidebar = () => {
       path: "/dashboard/notification",
       name: "Notification",
       icon: <NotificationsNoneIcon className="icon" />,
+    },
+    {
+      path: "/dashboard/detail",
+      name: "Theme",
+      icon: <AutoFixHighIcon className="icon" />,
     },
     {
       path: "/",

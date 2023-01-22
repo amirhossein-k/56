@@ -13,6 +13,7 @@ import List from "./pages/Dashboard/List/List";
 import New from "./pages/Dashboard/New/New";
 import Single from "./pages/Single/Single";
 import ProtectedRoute from "./components/protect/ProtectedRoute";
+import Detail from "./components/Dashboard/detail.js/Detail";
 ///////////////
 export default function App() {
   // const [user, setUser] = useState("");
@@ -40,6 +41,7 @@ export default function App() {
               {/* <Route path=":productId" element={<Single />} /> */}
               <Route path="new" element={<New />} />
             </Route>
+            <Route path="detail" element={<Detail />} />
           </Route>
         </Route>
         {/* /// */}
