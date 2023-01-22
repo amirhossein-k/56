@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Card, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { logout } from "../../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
+
 const Header = ({ userInfo }) => {
   const [metr, setMetr] = useState("");
   window.onscroll = function () {
@@ -21,7 +22,7 @@ const Header = ({ userInfo }) => {
     dispatch(logout());
   };
   /////
-  useEffect(() => {}, [userInfo]);
+  // useEffect(() => {}, [userInfo]);
 
   return (
     <header

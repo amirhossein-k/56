@@ -1,11 +1,14 @@
 import {
- DETAIL_REQUEST,DETAIL_SUCCESS,DETAIL_FAIL,DETAIL_NULL
+  DETAIL_REQUEST,
+  DETAIL_SUCCESS,
+  DETAIL_FAIL,
+  DETAIL_NULL,
 } from "../constants/detailConstant";
 import axios from "axios";
 
 ///////////////
 export const createDetailAction =
-  ( header_img, title, subtitle, slider_img, times, social ) =>
+  (header_img, profile_img, title, subtitle, slider_img, times, social) =>
   async (dispatch, getState) => {
     try {
       if (header_img === null || header_img === undefined) {
@@ -26,7 +29,15 @@ export const createDetailAction =
 
         const { data } = await axios.post(
           "https://backend-site-asll.vercel.app/api/detail",
-          { header_img, title, subtitle, slider_img, times, social  },
+          {
+            header_img,
+            profile_img,
+            title,
+            subtitle,
+            slider_img,
+            times,
+            social,
+          },
           config
         );
 
