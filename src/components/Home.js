@@ -2,23 +2,26 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Swipper from "./Swipper/Swipper";
 import Search from "./Search/Search";
-import Cards from "./Cards/Cards";
+// import Cards from "./Cards/Cards";
 import Header from "./Header/Header";
 import "../styles/Home.css";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductAction } from "../actions/productActions";
 ///////////
-const Home = ({ userInfo }) => {
+const Home = ({ userInfo, Cards, cardrun, setCardrun }) => {
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.productList);
-  const { product, loading } = productList;
-  useEffect(() => {}, [product, loading]);
-  const fetch = useMemo(() => {
-    dispatch(listProductAction());
-  }, []);
+  // const productList = useSelector((state) => state.productList);
+  // const { product, loading } = productList;
+  // useEffect(() => {}, [product, loading]);
+  // const fetch = useMemo(() => {
+  //   dispatch(listProductAction());
+  // }, []);
   // useEffect(() => {}, []);
+  // useEffect(() => {
+  //   dispatch(listProductAction());
+  // }, []);
   return (
     // <>
     <Container fluid className="gx-0">
@@ -30,7 +33,7 @@ const Home = ({ userInfo }) => {
         <Search />
       </Row>
       <Row className="gap-4 fix">
-        <Cards />
+        <Cards cardrun={cardrun} setCardrun={setCardrun} />
       </Row>
       <Row>
         <Col lg={6} className="background">

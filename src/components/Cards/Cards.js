@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProductAction } from "../../actions/productActions";
 import { useNavigate, generatePath, Link } from "react-router-dom";
 
-const Cards = () => {
+const Cards = ({ cardrun, setCardrun }) => {
   const dispatch = useDispatch();
   const [Id, setId] = useState(null);
   const productList = useSelector((state) => state.productList);
@@ -26,10 +26,17 @@ const Cards = () => {
   //   dispatch(listProductAction());
   // }, []);
   useEffect(() => {
-    dispatch(listProductAction());
+    setCardrun(true);
   }, []);
+  useEffect(() => {
+    console.log(cardrun, "card ...");
+    if (cardrun === true) {
+      dispatch(listProductAction());
+    }
+  }, [cardrun]);
+
   const navigate = useNavigate();
-  const transferhandler = (itemid) => {};
+  // const transferhandler = (itemid) => {};
   console.log(product, "product");
   return (
     <>

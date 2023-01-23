@@ -14,13 +14,15 @@ import New from "./pages/Dashboard/New/New";
 import Single from "./pages/Single/Single";
 import ProtectedRoute from "./components/protect/ProtectedRoute";
 import Detail from "./components/Dashboard/detail.js/Detail";
+import Cards from "./components/Cards/Cards";
 ///////////////
 export default function App() {
   // const [user, setUser] = useState("");
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
-
+  const [cardrun, setCardrun] = useState(false);
   console.log(userInfo);
+  console.log(cardrun, "app..");
   return (
     // <BrowserRouter>
     <Container
@@ -30,7 +32,17 @@ export default function App() {
     >
       {/* <Header />  */}
       <Routes>
-        <Route path="/" element={<Home userInfo={userInfo} />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              userInfo={userInfo}
+              Cards={Cards}
+              cardrun={cardrun}
+              setCardrun={setCardrun}
+            />
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/products/:productId" element={<Single />} />
         <Route element={<ProtectedRoute userInfo={userInfo} />}>
