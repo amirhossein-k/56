@@ -7,6 +7,7 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_LOGOUT_FAIL
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -26,9 +27,12 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
-export const logoutReducer = () => async (dispatch) => {
-  localStorage.removeItem("userInfo");
-  dispatch({ type: USER_LOGOUT });
+export const logoutReducer = () => async (action) => {
+  if (action.type === USER_LOGOUT) {
+    return { success: true };
+  }else if(action.type === USER_LOGOUT_FAIL){
+     return { success: false ,error:action.payload};
+  }
 };
 
 export const userRegisterReducer = (state = {}, action) => {

@@ -30,7 +30,7 @@ const Home = ({ userInfo }) => {
         <Search />
       </Row>
       <Row className="gap-4 fix">
-        <Cards product={product} loading={loading} />
+        <Cards />
       </Row>
       <Row>
         <Col lg={6} className="background">
