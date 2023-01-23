@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./home.scss";
+import "./homeDashboard.scss";
 import Sidebar from "../../../components/Dashboard/sidebar/Sidebar";
 // import Navbar from "../../../components/DashboardDashboard/navbar/Navbar";
 import Widgets from "../../../components/Dashboard/widgets/Widgets";
