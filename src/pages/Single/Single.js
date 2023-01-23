@@ -21,7 +21,7 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
-const Single = () => {
+const Single = ({ cardrun, setCardrun }) => {
   const [pics, setPics] = useState([]);
   const [key, setKey] = useState([]);
   const [datas, setDatas] = useState("");
@@ -30,10 +30,15 @@ const Single = () => {
   const { productId } = useParams();
   console.log(productId, "id");
   useEffect(() => {
-    setKey((prevpic) => prevpic.splice(0, prevpic.length));
-    setValue((prevpic) => prevpic.splice(0, prevpic.length));
-    dispatch(getPrdoductAction(productId));
+    setCardrun(false);
   }, []);
+  useEffect(() => {
+    if (cardrun === false) {
+      setKey((prevpic) => prevpic.splice(0, prevpic.length));
+      setValue((prevpic) => prevpic.splice(0, prevpic.length));
+      dispatch(getPrdoductAction(productId));
+    }
+  }, [cardrun]);
   const product = useSelector((state) => state.productGet);
   const { data, success, loading } = product;
 
@@ -43,12 +48,6 @@ const Single = () => {
     if (success === true) {
       if (data) {
         for (const [key, value] of Object.entries(data)) {
-          console.log("key", key);
-          console.log("key yype", typeof key);
-          // setKey((prevkey) => [...prevkey, key]);
-
-          console.log("key og", key);
-          console.log("value og", value);
           setKey((prevkey) => [...prevkey, key]);
           setValue((prevvalue) => [...prevvalue, value]);
           if (key === "date") {
@@ -60,9 +59,7 @@ const Single = () => {
           }
           if (key === "pic") {
             setPics(value);
-            console.log(pics, "pics");
           }
-          console.log(datas, "data");
         }
       }
     }
@@ -83,17 +80,27 @@ const Single = () => {
             pics.map((item, index) => {
               console.log(datas, "datas");
               return (
-                <div className="each-slide">
+                <div className="each-slide" key={index}>
                   <div className="each-slide-child">
-                    <img src={item} alt="" className="img-sidebar" />
+                    <img
+                      src={item}
+                      alt=""
+                      className="img-sidebar"
+                      key={index}
+                    />
                   </div>
                 </div>
               );
             })
           ) : (
-            <div className="each-slide">
+            <div className="each-slide" key={images[0]}>
               <div className="each-slide-child">
-                <img src={images[0]} alt="" className="img-sidebar" />
+                <img
+                  src={images[0]}
+                  alt=""
+                  className="img-sidebar"
+                  key={images[0]}
+                />
                 <p>خالی</p>
               </div>
             </div>
@@ -101,18 +108,22 @@ const Single = () => {
         </Fade>
       </Row>
       <Row className="details">
-        {/* {key && console.log(key, "keii")} */}
         {success &&
           key.map((item, index) => {
             console.log(item, "item");
             console.log(value[index], "value");
             return (
-              <Row className="row-child-detail">
+              <Row className="row-child-detail" key={index}>
                 {item === "pic" ||
                 item === "_id" ||
                 item === "__v" ||
                 item === "id" ? null : (
-                  <Col sm={3} lg={4} className="col-child-detail item">
+                  <Col
+                    sm={3}
+                    lg={4}
+                    className="col-child-detail item"
+                    key={index}
+                  >
                     {/* {item} */}
                     {(() => {
                       switch (item) {
@@ -144,8 +155,7 @@ const Single = () => {
                 item === "_id" ||
                 item === "__v" ||
                 item === "id" ? null : (
-                  <Col className="col-child-detail value">
-                    {/* {item === "date" ? datas : value[index] ? item ==='status' } */}
+                  <Col className="col-child-detail value" key={index}>
                     {(() => {
                       switch (item) {
                         case "date":

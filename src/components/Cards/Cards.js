@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
 import { Card } from "react-bootstrap";
 import "../../styles/Cards.css";
 // import { Cars } from "../../untils/Cars";
@@ -6,16 +12,28 @@ import cash_logo from "../../public/cash.svg";
 import car_logo from "../../public/carlogo.svg";
 import kilo_logo from "../../public/kilo.svg";
 import axios from "axios";
-// import { useDispatch, useSelector } from "react-redux";
-// import { listProductAction } from "../../actions/productActions";
+import { useDispatch, useSelector } from "react-redux";
+import { listProductAction } from "../../actions/productActions";
 import { useNavigate, generatePath, Link } from "react-router-dom";
 
-const Cards = ({ product, loading }) => {
-  // const dispatch = useDispatch();
+const Cards = ({ cardrun, setCardrun }) => {
+  const dispatch = useDispatch();
   const [Id, setId] = useState(null);
+  const productList = useSelector((state) => state.productList);
+  const { product, loading } = productList;
+
+  useEffect(() => {
+    setCardrun(true);
+  }, []);
+  useEffect(() => {
+    console.log(cardrun, "card ...");
+    if (cardrun === true) {
+      dispatch(listProductAction());
+    }
+  }, [cardrun]);
 
   const navigate = useNavigate();
-  const transferhandler = (itemid) => {};
+
   console.log(product, "product");
   return (
     <>

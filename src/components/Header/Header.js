@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Card, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { logout } from "../../actions/userActions";
+import { logoutAction } from "../../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const Header = ({ userInfo }) => {
+  const dispatch = useDispatch();
   const [metr, setMetr] = useState("");
   window.onscroll = function () {
     myFunction();
@@ -17,18 +18,15 @@ const Header = ({ userInfo }) => {
     }
   }
   //////////
-  const dispatch = useDispatch();
+
   const logoutHandler = () => {
-    dispatch(logout());
+    dispatch(logoutAction());
   };
-  /////
-  // useEffect(() => {}, [userInfo]);
 
   return (
     <header
       id="header"
       ref={(el) => {
-        // el can be null - see https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs
         if (!el) return;
 
         console.log(el.getBoundingClientRect().bottom); // prints 200px

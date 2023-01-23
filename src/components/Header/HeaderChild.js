@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Card, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { logout } from "../../actions/userActions";
+import { logoutAction } from "../../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 const HeaderChild = ({ userInfo }) => {
   const [metr, setMetr] = useState("");
@@ -18,7 +18,7 @@ const HeaderChild = ({ userInfo }) => {
   //////////
   const dispatch = useDispatch();
   const logoutHandler = () => {
-    dispatch(logout());
+    dispatch(logoutAction());
   };
   /////
   useEffect(() => {}, [userInfo]);

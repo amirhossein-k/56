@@ -7,6 +7,7 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_LOGOUT_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -40,9 +41,19 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const logout = async (dispatch) => {
-  localStorage.removeItem("userInfo");
-  dispatch({ type: USER_LOGOUT });
+export const logoutAction = () => async (dispatch) => {
+  try {
+    localStorage.removeItem("userInfo");
+    dispatch({ type: USER_LOGOUT });
+  } catch (error) {
+    dispatch({
+      type: USER_LOGOUT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
 };
 
 export const register = (name, email, password, pic) => async (dispatch) => {
