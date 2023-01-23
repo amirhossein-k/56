@@ -15,13 +15,7 @@ const Home = ({ userInfo, Cards, cardrun, setCardrun }) => {
   // const productList = useSelector((state) => state.productList);
   // const { product, loading } = productList;
   // useEffect(() => {}, [product, loading]);
-  // const fetch = useMemo(() => {
-  //   dispatch(listProductAction());
-  // }, []);
-  // useEffect(() => {}, []);
-  // useEffect(() => {
-  //   dispatch(listProductAction());
-  // }, []);
+
   return (
     // <>
     <Container fluid className="gx-0">

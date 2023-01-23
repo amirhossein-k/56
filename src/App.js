@@ -44,7 +44,10 @@ export default function App() {
           }
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/products/:productId" element={<Single />} />
+        <Route
+          path="/products/:productId"
+          element={<Single cardrun={cardrun} setCardrun={setCardrun} />}
+        />
         <Route element={<ProtectedRoute userInfo={userInfo} />}>
           <Route path="/dashboard">
             <Route index element={<HomeDashboard />} />

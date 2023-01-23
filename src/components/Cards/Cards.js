@@ -21,10 +21,7 @@ const Cards = ({ cardrun, setCardrun }) => {
   const [Id, setId] = useState(null);
   const productList = useSelector((state) => state.productList);
   const { product, loading } = productList;
-  // useEffect(() => {}, [product]);
-  // const fetch = useMemo(() => {
-  //   dispatch(listProductAction());
-  // }, []);
+
   useEffect(() => {
     setCardrun(true);
   }, []);
@@ -36,7 +33,7 @@ const Cards = ({ cardrun, setCardrun }) => {
   }, [cardrun]);
 
   const navigate = useNavigate();
-  // const transferhandler = (itemid) => {};
+
   console.log(product, "product");
   return (
     <>

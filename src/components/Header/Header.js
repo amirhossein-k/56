@@ -22,14 +22,11 @@ const Header = ({ userInfo }) => {
   const logoutHandler = () => {
     dispatch(logoutAction());
   };
-  /////
-  // useEffect(() => {}, [userInfo]);
 
   return (
     <header
       id="header"
       ref={(el) => {
-        // el can be null - see https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs
         if (!el) return;
 
         console.log(el.getBoundingClientRect().bottom); // prints 200px
