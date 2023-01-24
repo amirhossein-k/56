@@ -30,6 +30,7 @@ const Single = ({ cardrun, setCardrun }) => {
   const { productId } = useParams();
   console.log(productId, "id");
   useEffect(() => {
+    console.log(cardrun, "singal");
     setCardrun(false);
   }, []);
   useEffect(() => {

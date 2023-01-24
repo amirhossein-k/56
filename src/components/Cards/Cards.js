@@ -29,6 +29,7 @@ const Cards = ({ cardrun, setCardrun }) => {
     console.log(cardrun, "card ...");
     if (cardrun === true) {
       dispatch(listProductAction());
+      setCardrun(false);
     }
   }, [cardrun]);
 

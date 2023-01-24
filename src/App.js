@@ -21,14 +21,11 @@ export default function App() {
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
   const [cardrun, setCardrun] = useState(false);
-  console.log(userInfo);
+  // console.log(userInfo);
   console.log(cardrun, "app..");
-  useEffect(() => {
-    setCardrun(true);
-    return () => {
-      setCardrun(false);
-    };
-  }, []);
+  // useEffect(() => {
+  //   setCardrun(true);
+  // }, [cardrun]);
   return (
     // <BrowserRouter>
     <Container

@@ -16,11 +16,13 @@ import { listProductAction } from "../../../actions/productActions";
 
 const HomeDashboard = ({ setCardrun, cardrun }) => {
   useEffect(() => {
+    console.log(cardrun, "dashboard");
     setCardrun(true);
   }, []);
   useEffect(() => {
     if (cardrun === true) {
       dispatch(listProductAction());
+      setCardrun(false);
     }
   }, [cardrun]);
   const dispatch = useDispatch();
