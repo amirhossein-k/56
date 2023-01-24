@@ -30,15 +30,18 @@ const Single = ({ cardrun, setCardrun }) => {
   const { productId } = useParams();
   console.log(productId, "id");
   useEffect(() => {
-    setCardrun(false);
+    console.log(cardrun, "singal");
+    setCardrun(true);
   }, []);
   useEffect(() => {
     if (cardrun === true) {
       setKey((prevpic) => prevpic.splice(0, prevpic.length));
       setValue((prevpic) => prevpic.splice(0, prevpic.length));
       dispatch(getPrdoductAction(productId));
+      setCardrun(false);
     }
   }, [cardrun]);
+ 
   const product = useSelector((state) => state.productGet);
   const { data, success, loading } = product;
 

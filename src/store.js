@@ -26,7 +26,7 @@ const reducer = combineReducers({
   productDelete: productDeleteReducer,
   productUpdate: productUpdateReducer,
   productGet: productGetReducer,
-  detailGet: detailCreateReducer,
+  detailcreate: detailCreateReducer,
 });
 ////////////
 const userInformStorage = localStorage.getItem("userInfo")

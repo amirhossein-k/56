@@ -29,24 +29,48 @@ const Detail = () => {
   const [social, setSocial] = useState([]);
   const [loade, setLoade] = useState(false);
   const [errorPic, setErrorPic] = useState(false);
+  const [datadetail, setDatadetail] = useState(null);
 
   /////////////////////////
-  const detailGet = useSelector((state) => state.detailGet);
-  const { loading, success } = detailGet;
+  const detailcreate = useSelector((state) => state.detailcreate);
+  const { loading, success, detail } = detailcreate;
   ////////////////////////////
   useEffect(() => {
     if (success === true) {
+      for (const [key, value] of Object.entries(detail)) {
+        switch (key) {
+          case "header_img":
+            return setHeader_img(value);
+          case "title":
+            return console.log(header_img, "header");
+
+          case "subtitle":
+            return setSubtitle(value);
+          case "profile_img":
+            return setProfile_img(value);
+          case "times":
+            return setTimes(value);
+          case "slider_img":
+            return setSlider_img(value);
+          case "social":
+            return setSocial(value);
+          default:
+            return null;
+        }
+      }
+      setDatadetail(detail);
       dispatch(createDetailAction());
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
+      // setTimeout(() => {
+      //   navigate("/");
+      // }, 1000);
     }
   }, [success]);
+  useEffect(() => {}, [datadetail]);
   //////////////////////////
   const resetHandler = () => {
     setTitle("");
 
-    setSubtitle((prevsubtitle) => prevsubtitle.splice(0, prevsubtitle.length));
+    setSubtitle("");
     setHeader_img("");
     setProfile_img("");
     setSlider_img((prevslider_img) =>
@@ -145,6 +169,7 @@ const Detail = () => {
   ///////////////
   const submitHandler = (e) => {
     e.preventDefault();
+
     if (!header_img || !slider_img) return;
     if (
       header_img === undefined ||
@@ -156,6 +181,9 @@ const Detail = () => {
     ) {
       setErrorPic(true);
     } else {
+      setTimes((prevtime) => [...prevtime, firsttime]);
+      setTimes((prevtime) => [...prevtime, secendtime]);
+      setTimes((prevtime) => [...prevtime, tirdtime]);
       dispatch(
         createDetailAction(
           header_img,
@@ -170,9 +198,7 @@ const Detail = () => {
       resetHandler();
     }
   };
-  useEffect(() => {
-    console.log(fileprofile_Input.current.id);
-  }, [fileprofile_Input]);
+
   ////////////////////////
   return (
     <Row className="detail">
