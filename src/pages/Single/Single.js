@@ -33,7 +33,7 @@ const Single = ({ cardrun, setCardrun }) => {
     setCardrun(false);
   }, []);
   useEffect(() => {
-    if (cardrun === false) {
+    if (cardrun === true) {
       setKey((prevpic) => prevpic.splice(0, prevpic.length));
       setValue((prevpic) => prevpic.splice(0, prevpic.length));
       dispatch(getPrdoductAction(productId));

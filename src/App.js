@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./styles.css";
 import { Container } from "react-bootstrap";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -23,6 +23,12 @@ export default function App() {
   const [cardrun, setCardrun] = useState(false);
   console.log(userInfo);
   console.log(cardrun, "app..");
+  useEffect(() => {
+    setCardrun(true);
+    return () => {
+      setCardrun(false);
+    };
+  }, []);
   return (
     // <BrowserRouter>
     <Container
@@ -50,7 +56,12 @@ export default function App() {
         />
         <Route element={<ProtectedRoute userInfo={userInfo} />}>
           <Route path="/dashboard">
-            <Route index element={<HomeDashboard />} />
+            <Route
+              index
+              element={
+                <HomeDashboard cardrun={cardrun} setCardrun={setCardrun} />
+              }
+            />
             <Route path="products">
               <Route index element={<List />} />
               {/* <Route path=":productId" element={<Single />} /> */}

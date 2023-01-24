@@ -14,15 +14,23 @@ import axios from "axios";
 import { listProductAction } from "../../../actions/productActions";
 ////////////////
 
-const HomeDashboard = () => {
+const HomeDashboard = ({ setCardrun, cardrun }) => {
+  useEffect(() => {
+    setCardrun(true);
+  }, []);
+  useEffect(() => {
+    if (cardrun === true) {
+      dispatch(listProductAction());
+    }
+  }, [cardrun]);
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { product, loading } = productList;
 
-  const fetch = useMemo(() => {
-    dispatch(listProductAction());
-  }, []);
-  useEffect(() => {}, []);
+  // const fetch = useMemo(() => {
+  //   dispatch(listProductAction());
+  // }, []);
+  // useEffect(() => {}, []);
 
   return (
     <Container
