@@ -74,7 +74,7 @@ const Cards = ({ cardrun, setCardrun }) => {
                 </Card.Text>
               </Card.Body>
               <div class="card-footer">
-                {/* <small class="text-muted">Last updated 3 mins ago</small> */}
+                {/* <small className="text-muted">Last updated 3 mins ago</small> */}
                 {/* <Link to={`/products/${item.id}`}></Link> */}
               </div>
             </Card>

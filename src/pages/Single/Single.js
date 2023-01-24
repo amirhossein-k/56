@@ -31,15 +31,17 @@ const Single = ({ cardrun, setCardrun }) => {
   console.log(productId, "id");
   useEffect(() => {
     console.log(cardrun, "singal");
-    setCardrun(false);
+    setCardrun(true);
   }, []);
   useEffect(() => {
     if (cardrun === true) {
       setKey((prevpic) => prevpic.splice(0, prevpic.length));
       setValue((prevpic) => prevpic.splice(0, prevpic.length));
       dispatch(getPrdoductAction(productId));
+      setCardrun(false);
     }
   }, [cardrun]);
+ 
   const product = useSelector((state) => state.productGet);
   const { data, success, loading } = product;
 
