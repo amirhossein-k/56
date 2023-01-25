@@ -42,7 +42,7 @@ const Detail = () => {
           case "header_img":
             return setHeader_img(value);
           case "title":
-            return setTitle(header_img);
+            return setTitle(value);
 
           case "subtitle":
             return setSubtitle(value);
@@ -58,14 +58,16 @@ const Detail = () => {
             return null;
         }
       }
+      console.log(header_img, "headeimage success");
       setDatadetail(detail);
-      dispatch(createDetailAction());
+      const empty = true;
+      dispatch(createDetailAction(empty));
       // setTimeout(() => {
       //   navigate("/");
       // }, 1000);
     }
-  }, [success]);
-  useEffect(() => {}, [datadetail]);
+  }, [success, detail]);
+  // useEffect(() => {}, [datadetail]);
   //////////////////////////
   const resetHandler = () => {
     setTitle("");
@@ -198,6 +200,8 @@ const Detail = () => {
       resetHandler();
     }
   };
+  // console.log(title, "title");
+  console.log(datadetail, "dataaa");
 
   ////////////////////////
   return (
