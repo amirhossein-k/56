@@ -42,7 +42,7 @@ const Detail = () => {
           case "header_img":
             return setHeader_img(value);
           case "title":
-            return console.log(header_img, "header");
+            return setTitle(header_img);
 
           case "subtitle":
             return setSubtitle(value);
