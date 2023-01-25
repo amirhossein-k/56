@@ -8,10 +8,19 @@ import axios from "axios";
 
 ///////////////
 export const createDetailAction =
-  (header_img, profile_img, title, subtitle, slider_img, times, social) =>
+  (
+    header_img,
+    profile_img,
+    title,
+    subtitle,
+    slider_img,
+    times,
+    social,
+    empty
+  ) =>
   async (dispatch, getState) => {
     try {
-      if (header_img === null || header_img === undefined) {
+      if (empty === true) {
         dispatch({ type: DETAIL_NULL });
       } else {
         dispatch({ type: DETAIL_REQUEST });
