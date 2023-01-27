@@ -32,6 +32,7 @@ const Detail = ({ setCardrun, cardrun }) => {
 
   const [social, setSocial] = useState([]);
   const [loade, setLoade] = useState(false);
+  const [dataget, setDataget] = useState(false);
   const [errorPic, setErrorPic] = useState(false);
   const [datadetail, setDatadetail] = useState(null);
 
@@ -66,6 +67,7 @@ const Detail = ({ setCardrun, cardrun }) => {
       setSlider_img(data.slider_img);
       setTimes(data.times);
       setSocial(data.social);
+      setDataget(true);
     };
     fetching();
   }, []);
@@ -214,7 +216,9 @@ const Detail = ({ setCardrun, cardrun }) => {
   ///////////////
   const submitHandler = (e) => {
     e.preventDefault();
-
+    setTimes([...firsttime]);
+    setTimes([...secendtime]);
+    setTimes([...tirdtime]);
     if (!header_img || !slider_img) return;
     if (
       header_img === undefined ||
@@ -226,9 +230,6 @@ const Detail = ({ setCardrun, cardrun }) => {
     ) {
       setErrorPic(true);
     } else {
-      setTimes((prevtime) => [...prevtime, firsttime]);
-      setTimes((prevtime) => [...prevtime, secendtime]);
-      setTimes((prevtime) => [...prevtime, tirdtime]);
       dispatch(
         createDetailAction(
           header_img,
@@ -255,31 +256,33 @@ const Detail = ({ setCardrun, cardrun }) => {
       </Col>
 
       <Col className="newContainer">
-        <Col>
-          <div className="preview row">
-            <Col className="profile_box" sm={12}>
-              <div className="box">
-                <span>Profile</span>
-                <img src={profile_img} alt="" />
-              </div>
-              <div className="box">
-                <span style={{ backgroundColor: "#787878" }}>Header</span>
-                <img src={header_img} alt="" />
-              </div>
-            </Col>
+        {dataget && (
+          <Col>
+            <div className="preview row">
+              <Col className="profile_box" sm={12}>
+                <div className="box">
+                  <span>Profile</span>
+                  <img src={profile_img} alt="" />
+                </div>
+                <div className="box">
+                  <span style={{ backgroundColor: "#787878" }}>Header</span>
+                  <img src={header_img} alt="" />
+                </div>
+              </Col>
 
-            <Col className="slider_box" sm={12}>
-              <span>slider</span>
-              <div className="box_img">
-                {slider_img.map((item, index) => (
-                  <div className="box">
-                    <img src={item} alt="" key={index} />
-                  </div>
-                ))}
-              </div>
-            </Col>
-          </div>
-        </Col>
+              <Col className="slider_box" sm={12}>
+                <span>slider</span>
+                <div className="box_img">
+                  {slider_img.map((item, index) => (
+                    <div className="box">
+                      <img src={item} alt="" key={index} />
+                    </div>
+                  ))}
+                </div>
+              </Col>
+            </div>
+          </Col>
+        )}
         <div className="top">
           <h1>Add New Product</h1>
         </div>
