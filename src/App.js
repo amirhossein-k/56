@@ -64,7 +64,7 @@ export default function App() {
               {/* <Route path=":productId" element={<Single />} /> */}
               <Route path="new" element={<New />} />
             </Route>
-            <Route path="detail" element={<Detail />} />
+            <Route path="detail" element={<Detail  cardrun={cardrun} setCardrun={setCardrun}  />} />
           </Route>
         </Route>
         {/* /// */}
