@@ -5,9 +5,13 @@ import { TagsInput } from "react-tag-input-component";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../../../components/Dashboard/sidebar/Sidebar";
-import { createDetailAction } from "../../../actions/detailActions";
+import {
+  createDetailAction,
+  getDetailAction,
+} from "../../../actions/detailActions";
+import axios from "axios";
 ///////////////////////////
-const Detail = () => {
+const Detail = ({ setCardrun, cardrun }) => {
   let navigate = useNavigate();
   const fileprofile_Input = useRef(null);
   const fileheader_Input = useRef(null);
@@ -32,42 +36,81 @@ const Detail = () => {
   const [datadetail, setDatadetail] = useState(null);
 
   /////////////////////////
-  const detailcreate = useSelector((state) => state.detailcreate);
-  const { loading, success, detail } = detailcreate;
+  // const detailcreate = useSelector((state) => state.detailcreate);
+  // const { loading, success, detail } = detailcreate;
+  const detailget = useSelector((state) => state.detailget);
+  const { loading: loadingGet, success: successGet, detail } = detailget;
   ////////////////////////////
-  useEffect(() => {
-    if (success === true) {
-      for (const [key, value] of Object.entries(detail)) {
-        switch (key) {
-          case "header_img":
-            return setHeader_img(value);
-          case "title":
-            return setTitle(value);
 
-          case "subtitle":
-            return setSubtitle(value);
-          case "profile_img":
-            return setProfile_img(value);
-          case "times":
-            return setTimes(value);
-          case "slider_img":
-            return setSlider_img(value);
-          case "social":
-            return setSocial(value);
-          default:
-            return null;
-        }
-      }
-      console.log(header_img, "headeimage success");
-      setDatadetail(detail);
-      const empty = true;
-      dispatch(createDetailAction(empty));
-      // setTimeout(() => {
-      //   navigate("/");
-      // }, 1000);
+  useEffect(() => {
+    setCardrun(true);
+  }, []);
+
+  useEffect(() => {
+    console.log(cardrun, "card ...");
+    if (cardrun === true) {
+      dispatch(getDetailAction());
+      setCardrun(false);
     }
-  }, [success, detail]);
-  // useEffect(() => {}, [datadetail]);
+  }, [cardrun]);
+  useEffect(() => {
+    const fetching = async () => {
+      const { data } = await axios.get(
+        "https://backend-site-asll.vercel.app/api/detail"
+      );
+
+      setHeader_img(data.header_img);
+      setProfile_img(data.profile_img);
+      setTitle(data.title);
+      setSubtitle(data.subtitle);
+      setSlider_img(data.slider_img);
+      setTimes(data.times);
+      setSocial(data.social);
+    };
+    fetching();
+  }, []);
+  // useEffect(() => {
+  //   if (success === true) {
+  //     setDatadetail(detail);
+  //     console.log(datadetail, "success detail");
+  //     ///
+
+  //     for (const [key, value] of Object.entries(datadetail)) {
+  //       console.log(key, "key");
+  //       switch (key) {
+  //         case "header_img":
+  //           return setHeader_img(value);
+  //         case "profile_img":
+  //           return setProfile_img(value);
+  //         case "title":
+  //           return setTitle(value);
+  //         case "subtitle":
+  //           return setSubtitle(value);
+  //         case "slider_img":
+  //           return setSlider_img(value);
+  //         case "times":
+  //           return setTimes(value);
+  //         case "social":
+  //           return setSocial(value);
+  //         default:
+  //           return null;
+  //       }
+  //     }
+  //   }
+  // }, [success]);
+
+  /////////////////////////////
+
+  console.log("successGet", successGet);
+  if (successGet === true) {
+    console.log(detail, "ddd");
+    console.log(typeof detail, "type");
+    if (
+      Object.keys(detail).length !== 0 &&
+      Object.getPrototypeOf(detail) === Object.prototype
+    ) {
+    }
+  }
   //////////////////////////
   const resetHandler = () => {
     setTitle("");
@@ -201,7 +244,7 @@ const Detail = () => {
     }
   };
   // console.log(title, "title");
-  console.log(datadetail, "dataaa");
+  // console.log(datadetail, "dataaa");
 
   ////////////////////////
   return (
@@ -210,7 +253,33 @@ const Detail = () => {
       <Col sm={12} md={2} lg={1} className="fixlistnavbar">
         <Sidebar />
       </Col>
+
       <Col className="newContainer">
+        <Col>
+          <div className="preview row">
+            <Col className="profile_box" sm={12}>
+              <div className="box">
+                <span>Profile</span>
+                <img src={profile_img} alt="" />
+              </div>
+              <div className="box">
+                <span style={{ backgroundColor: "#787878" }}>Header</span>
+                <img src={header_img} alt="" />
+              </div>
+            </Col>
+
+            <Col className="slider_box" sm={12}>
+              <span>slider</span>
+              <div className="box_img">
+                {slider_img.map((item, index) => (
+                  <div className="box">
+                    <img src={item} alt="" key={index} />
+                  </div>
+                ))}
+              </div>
+            </Col>
+          </div>
+        </Col>
         <div className="top">
           <h1>Add New Product</h1>
         </div>
