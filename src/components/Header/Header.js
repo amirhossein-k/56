@@ -44,7 +44,7 @@ const Header = ({ userInfo }) => {
         >
           <img
             className="img-circle "
-            src="https://res.cloudinary.com/dijamrzud/image/upload/v1668860640/bxrni1yl3nxxhmvdawrn.jpg"
+            src="https://res.cloudinary.com/dijamrzud/image/upload/v1675870663/download_zcmjg2.jpg"
             alt=""
           />
           <div className="back-fade">
