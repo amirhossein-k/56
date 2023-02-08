@@ -61,7 +61,7 @@ const Login = () => {
       <Row style={{ marginRight: 0, paddingRight: 0, minHeight: "100vh" }}>
         <Col xs={12} sm={6} style={{ padding: 0 }}>
           <div className="carlogin-img">
-            <img src="https://res.cloudinary.com/dijamrzud/image/upload/v1670614845/ville-kaisla-HNCSCpWrVJA-unsplash_btb7zd.jpg" />
+            <img src="https://res.cloudinary.com/dijamrzud/image/upload/v1675870816/ville-kaisla-HNCSCpWrVJA-unsplash_zd4dza.jpg" />
           </div>
         </Col>
         <Col xs={12} sm={6} style={{ padding: 0 }}>

@@ -36,6 +36,7 @@ export const getDetailAction = (empty) => async (dispatch, getState) => {
       );
 
       dispatch({ type: DETAIL_GET_SUCCESS, payload: data });
+      localStorage.setItem("DetailGet", JSON.stringify(data));
     }
   } catch (error) {
     dispatch({
@@ -54,8 +55,12 @@ export const createDetailAction =
     title,
     subtitle,
     slider_img,
-    times,
-    social,
+    times_1,
+    times_2,
+    times_3,
+    social_phone,
+    social_address,
+    social_ig,
     empty
   ) =>
   async (dispatch, getState) => {
@@ -84,8 +89,12 @@ export const createDetailAction =
             title,
             subtitle,
             slider_img,
-            times,
-            social,
+            times_1,
+            times_2,
+            times_3,
+            social_phone,
+            social_address,
+            social_ig,
           },
           config
         );

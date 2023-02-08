@@ -18,7 +18,7 @@ const Swipper = () => {
         // navigation={true}
         navigation={{
           prevEl: swiperNavPrevRef.current,
-          nextEl: swiperNavNextRef.current
+          nextEl: swiperNavNextRef.current,
         }}
         // effect={'fade'}
 
@@ -36,14 +36,14 @@ const Swipper = () => {
         <SwiperSlide className="swiperslide">
           <img
             className="image"
-            src="https://res.cloudinary.com/dijamrzud/image/upload/v1668962627/car2_qbrap5.jpg"
+            src="https://res.cloudinary.com/dijamrzud/image/upload/v1675877425/1967_charge_cars_ford_mustang_4k_2-1600x900_zm8lvn.jpg"
             alt=""
           />
         </SwiperSlide>
         <SwiperSlide className="swiperslide">
           <img
             className="image"
-            src="https://res.cloudinary.com/dijamrzud/image/upload/v1668962629/car_eo3wfi.jpg"
+            src="https://res.cloudinary.com/dijamrzud/image/upload/v1675877430/ford_mustang_california_special_2022_5k_4-1600x900_tfyqvt.jpg"
             alt=""
           />
         </SwiperSlide>

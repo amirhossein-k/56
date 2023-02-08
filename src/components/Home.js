@@ -30,21 +30,21 @@ const Home = ({ userInfo, Cards, cardrun, setCardrun }) => {
         <Cards cardrun={cardrun} setCardrun={setCardrun} />
       </Row>
       <Row>
-        <Col lg={6} className="background">
+        <Col md={6} className="background">
           <div className="ani-back">
             <img
-              src="https://res.cloudinary.com/dijamrzud/image/upload/v1668962705/circle_h6orwc.gif"
+              src="https://res.cloudinary.com/dijamrzud/image/upload/v1675873934/giphy_nkvmcl.gif"
               alt="image"
             />
             <div className="car-img">
               <img
-                src="https://res.cloudinary.com/dijamrzud/image/upload/v1668962697/car_z05a6c.png"
+                src="https://res.cloudinary.com/dijamrzud/image/upload/v1675871193/NicePng_carpng_3406804_byfcuz.png"
                 alt="image"
               />
             </div>
           </div>
         </Col>
-        <Col lg={6} className="background">
+        <Col md={6} className="background">
           <div className="contain">
             <div className="time">
               <span className="block">
@@ -59,15 +59,15 @@ const Home = ({ userInfo, Cards, cardrun, setCardrun }) => {
             </div>
             <div className="social">
               <div className="boxx">
-                <img src="https://res.cloudinary.com/dijamrzud/image/upload/v1670610052/phone_mw6xk7.png" />
+                <img src="https://res.cloudinary.com/dijamrzud/image/upload/v1675871567/Pngtree_call_icon_4419870_bqmoor.png" />
                 <span className="px-3">09391470427</span>
               </div>
               <div className="boxx">
-                <img src="https://res.cloudinary.com/dijamrzud/image/upload/v1670610051/insta_aewyg5.png" />
+                <img src="https://res.cloudinary.com/dijamrzud/image/upload/v1675871194/m2H7H7i8Z5d3K9Z5_nh78mr.png" />
                 <span className="px-3">AMIRHOSSEIN-K-1999</span>
               </div>
               <div className="boxx">
-                <img src="https://res.cloudinary.com/dijamrzud/image/upload/v1670610010/loc_emmrsc.png" />
+                <img src="https://res.cloudinary.com/dijamrzud/image/upload/v1675871172/m2i8Z5Z5G6A0H7G6_me3zxo.png" />
                 <span className="px-3">تهران</span>
               </div>
             </div>

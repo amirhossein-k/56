@@ -12,14 +12,16 @@
   position: relative;
 }
 .ani-back img {
-  height: 100%;
+  /* height: 100%;
   object-fit: contain;
-  max-width: -webkit-fill-available;
+  max-width: -webkit-fill-available; */
+  width: 100%;
+  height: max-content;
 }
 .car-img {
   /* width: 100%; */
   position: absolute;
-  top: 30%;
+  top: 35%;
   left: 18%;
   display: inline-block;
 }
@@ -94,7 +96,7 @@
 }
 #head {
   background: #f4f4f4
-    url(https://res.cloudinary.com/dijamrzud/image/upload/v1670333546/pexels-cesar-perez-733745_saw8qp.jpg);
+    url(https://res.cloudinary.com/dijamrzud/image/upload/v1675870512/pexels-cesar-perez-733745_jqa59f.jpg);
   /* height: 100%; */
 
   /* Create the parallax scrolling effect */
@@ -173,6 +175,12 @@
 }
 
 /* ///////////////////////// */
+@media (min-width: 768px) {
+  .col-md-6 {
+    /* width: 50%; */
+  }
+}
+
 @media screen and (max-width: 1108px) {
   .fix {
     justify-content: center;
