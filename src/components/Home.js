@@ -30,7 +30,7 @@ const Home = ({ userInfo, Cards, cardrun, setCardrun }) => {
         <Cards cardrun={cardrun} setCardrun={setCardrun} />
       </Row>
       <Row>
-        <Col lg={6} className="background">
+        <Col md={6} className="background">
           <div className="ani-back">
             <img
               src="https://res.cloudinary.com/dijamrzud/image/upload/v1675873934/giphy_nkvmcl.gif"
@@ -44,7 +44,7 @@ const Home = ({ userInfo, Cards, cardrun, setCardrun }) => {
             </div>
           </div>
         </Col>
-        <Col lg={6} className="background">
+        <Col md={6} className="background">
           <div className="contain">
             <div className="time">
               <span className="block">

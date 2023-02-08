@@ -175,6 +175,12 @@
 }
 
 /* ///////////////////////// */
+@media (min-width: 768px) {
+  .col-md-6 {
+    /* width: 50%; */
+  }
+}
+
 @media screen and (max-width: 1108px) {
   .fix {
     justify-content: center;

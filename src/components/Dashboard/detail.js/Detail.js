@@ -17,20 +17,30 @@ const Detail = ({ setCardrun, cardrun }) => {
   const fileheader_Input = useRef(null);
   const fileslider_Input = useRef(null);
   const dispatch = useDispatch();
+  //  times_1,
+  //   times_2,
+  //   times_3,
+  //   social_phone,
+  //   social_address,
+  //   social_ig,
   ////////////////////////
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState([]);
   const [header_img, setHeader_img] = useState("");
   const [profile_img, setProfile_img] = useState("");
   ///
-  const [firsttime, setfirsttime] = useState("");
-  const [secendtime, setSecendtime] = useState("");
-  const [tirdtime, setTirdtime] = useState("");
-  const [times, setTimes] = useState([]);
-  //
+  const [times_1, setTimes_1] = useState("");
+  const [times_2, setTimes_2] = useState("");
+  const [times_3, setTimes_3] = useState("");
+
+  const [social_phone, setSocial_phone] = useState("");
+  const [social_address, setSocial_address] = useState("");
+  const [social_ig, setSocial_ig] = useState("");
+
   const [slider_img, setSlider_img] = useState([]);
 
-  const [social, setSocial] = useState([]);
+  // const [social, setSocial] = useState([]);
+
   const [loade, setLoade] = useState(false);
   const [dataget, setDataget] = useState(false);
   const [errorPic, setErrorPic] = useState(false);
@@ -51,6 +61,7 @@ const Detail = ({ setCardrun, cardrun }) => {
     console.log(cardrun, "card ...");
     if (cardrun === true) {
       dispatch(getDetailAction());
+
       setCardrun(false);
     }
   }, [cardrun]);
@@ -65,41 +76,16 @@ const Detail = ({ setCardrun, cardrun }) => {
       setTitle(data.title);
       setSubtitle(data.subtitle);
       setSlider_img(data.slider_img);
-      setTimes(data.times);
-      setSocial(data.social);
+      setTimes_1(data.times_1);
+      setTimes_2(data.times_2);
+      setTimes_3(data.times_3);
+      setSocial_address(data.social_address);
+      setSocial_phone(data.social_phone);
+      setSocial_ig(data.social_ig);
       setDataget(true);
     };
     fetching();
   }, []);
-  // useEffect(() => {
-  //   if (success === true) {
-  //     setDatadetail(detail);
-  //     console.log(datadetail, "success detail");
-  //     ///
-
-  //     for (const [key, value] of Object.entries(datadetail)) {
-  //       console.log(key, "key");
-  //       switch (key) {
-  //         case "header_img":
-  //           return setHeader_img(value);
-  //         case "profile_img":
-  //           return setProfile_img(value);
-  //         case "title":
-  //           return setTitle(value);
-  //         case "subtitle":
-  //           return setSubtitle(value);
-  //         case "slider_img":
-  //           return setSlider_img(value);
-  //         case "times":
-  //           return setTimes(value);
-  //         case "social":
-  //           return setSocial(value);
-  //         default:
-  //           return null;
-  //       }
-  //     }
-  //   }
-  // }, [success]);
 
   /////////////////////////////
 
@@ -123,8 +109,12 @@ const Detail = ({ setCardrun, cardrun }) => {
     setSlider_img((prevslider_img) =>
       prevslider_img.splice(0, prevslider_img.length)
     );
-    setTimes((prevtimes) => prevtimes.splice(0, prevtimes.length));
-    setSocial((prevsocial) => prevsocial.splice(0, prevsocial.length));
+    setTimes_1("");
+    setTimes_2("");
+    setTimes_3("");
+    setSocial_phone("");
+    setSocial_address("");
+    setSocial_ig("");
 
     fileprofile_Input.current.value = null;
     fileheader_Input.current.value = null;
@@ -214,34 +204,62 @@ const Detail = ({ setCardrun, cardrun }) => {
   ///////
 
   ///////////////
+  // function onSubmit(data) {
+  //       return isAddMode
+  //           ? createUser(data)
+  //           : updateUser(id, data);
+  //   }
+  /////////////////
   const submitHandler = (e) => {
     e.preventDefault();
-    setTimes([...firsttime]);
-    setTimes([...secendtime]);
-    setTimes([...tirdtime]);
+
     if (!header_img || !slider_img) return;
-    if (
-      header_img === undefined ||
-      header_img === null ||
-      header_img === "" ||
-      slider_img === undefined ||
-      slider_img === null ||
-      slider_img === ""
-    ) {
-      setErrorPic(true);
+    if (dataget === true) {
+      // dispatch(
+      //   updateDetailAction(
+      //     header_img,
+      //     profile_img,
+      //     title,
+      //     subtitle,
+      //     slider_img,
+      //     times_1,
+      //     times_2,
+      //     times_3,
+      //     social_phone,
+      //     social_address,
+      //     social_ig
+      //   )
+      //////////ned write this action
+      // );
+      // resetHandler();
     } else {
-      dispatch(
-        createDetailAction(
-          header_img,
-          profile_img,
-          title,
-          subtitle,
-          slider_img,
-          times,
-          social
-        )
-      );
-      resetHandler();
+      if (
+        header_img === undefined ||
+        header_img === null ||
+        header_img === "" ||
+        slider_img === undefined ||
+        slider_img === null ||
+        slider_img === ""
+      ) {
+        setErrorPic(true);
+      } else {
+        dispatch(
+          createDetailAction(
+            header_img,
+            profile_img,
+            title,
+            subtitle,
+            slider_img,
+            times_1,
+            times_2,
+            times_3,
+            social_phone,
+            social_address,
+            social_ig
+          )
+        );
+        resetHandler();
+      }
     }
   };
   // console.log(title, "title");
@@ -257,39 +275,36 @@ const Detail = ({ setCardrun, cardrun }) => {
 
       <Col className="newContainer">
         {dataget && (
-          <Col>
-            <div className="preview row">
-              <Col className="profile_box" sm={12}>
-                <div className="box">
-                  <span>Profile</span>
-                  <img src={profile_img} alt="" />
-                </div>
-                <div className="box">
-                  <span style={{ backgroundColor: "#787878" }}>Header</span>
-                  <img src={header_img} alt="" />
-                </div>
+          <>
+            <Row className="profile_box">
+              <Col className="box" xs={3}>
+                <span>Profile</span>
+                <img src={profile_img} alt="" />
               </Col>
-
-              <Col className="slider_box" sm={12}>
-                <span>slider</span>
-                <div className="box_img">
-                  {slider_img.map((item, index) => (
-                    <div className="box">
-                      <img src={item} alt="" key={index} />
-                    </div>
-                  ))}
-                </div>
+              <Col className="box" xs={3}>
+                <span style={{ backgroundColor: "#787878" }}>Header</span>
+                <img src={header_img} alt="" />
               </Col>
-            </div>
-          </Col>
+            </Row>
+            <Row className="slider_box">
+              <span>slider</span>
+              <div className="box_img">
+                {slider_img.map((item, index) => (
+                  <Col className="box">
+                    <img src={item} alt="" key={index} />
+                  </Col>
+                ))}
+              </div>
+            </Row>
+          </>
         )}
         <div className="top">
           <h1>Add New Product</h1>
         </div>
         <div className="bottom-new">
           <Form className="formfix" onSubmit={submitHandler}>
-            <Row className="form-header" style={{ backgroundColor: "#ccc" }}>
-              <Col xs={7}>
+            <Row className="form-header">
+              <Col xs={9}>
                 <Form.Group controlId="picprofile">
                   <Form.Label>Profile Picture</Form.Label>
                   <Form.Control
@@ -304,7 +319,7 @@ const Detail = ({ setCardrun, cardrun }) => {
                   />
                 </Form.Group>
               </Col>
-              <Col xs={7}>
+              <Col xs={9}>
                 <Form.Group controlId="picheader">
                   <Form.Label>Header Picture</Form.Label>
                   <Form.Control
@@ -345,11 +360,8 @@ const Detail = ({ setCardrun, cardrun }) => {
               </Row>
             </Row>
             {/* ////end header/////// */}
-            <Row
-              className="form-slider"
-              style={{ backgroundColor: "rgb(255 215 215)" }}
-            >
-              <Col xs={7}>
+            <Row className="form-slider">
+              <Col xs={9}>
                 <Form.Group controlId="picslider">
                   <Form.Label>silder Pictures</Form.Label>
                   <Form.Control
@@ -367,45 +379,80 @@ const Detail = ({ setCardrun, cardrun }) => {
               </Col>
             </Row>
             {/* ////end slider/////// */}
-            <Row
-              className="form-social"
-              style={{ backgroundColor: "rgb(205 215 215)" }}
-            >
+            <Row className="form-begin">
               <Col xs={12} sm={4}>
-                <Form.Group controlId="firsttime">
+                <Form.Group controlId="times_1">
                   <Form.Label>شنبه تا چهارشنبه</Form.Label>
                   <Form.Control
                     type="text"
-                    value={firsttime}
+                    value={times_1}
                     placeholder="ساعت کاری شنبه تا چهارشنبه"
-                    onChange={(e) => setfirsttime(e.target.value)}
+                    onChange={(e) => setTimes_1(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
               </Col>
 
               <Col xs={12} sm={4}>
-                <Form.Group controlId="secendtime">
+                <Form.Group controlId="times_2">
                   <Form.Label>ساعت کاری پنجشنبه ها</Form.Label>
                   <Form.Control
                     type="text"
-                    value={secendtime}
+                    value={times_2}
                     placeholder="ساعت کاری پنجشنبه ها "
-                    onChange={(e) => setSecendtime(e.target.value)}
+                    onChange={(e) => setTimes_2(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
               </Col>
               <Col xs={12} sm={4}>
-                <Form.Group controlId="tirdtime">
+                <Form.Group controlId="times_3">
                   <Form.Label>ساعت کاری جمعه ها</Form.Label>
                   <Form.Control
                     type="text"
-                    value={tirdtime}
+                    value={times_3}
                     placeholder="ساعت کاری جمعه ها"
-                    onChange={(e) => setTirdtime(e.target.value)}
+                    onChange={(e) => setTimes_3(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
               </Col>
             </Row>
+            {/*  */}
+            <Row className="form-social">
+              <Col xs={12} sm={4}>
+                <Form.Group controlId="social_phone">
+                  <Form.Label>تلفن</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={social_phone}
+                    placeholder="تلفن"
+                    onChange={(e) => setSocial_phone(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+
+              <Col xs={12} sm={4}>
+                <Form.Group controlId="social_address">
+                  <Form.Label>ادرس</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={social_address}
+                    placeholder="ادرس"
+                    onChange={(e) => setSocial_address(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+              <Col xs={12} sm={4}>
+                <Form.Group controlId="social_ig">
+                  <Form.Label>ایدی اینستاگرام</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={social_ig}
+                    placeholder="ایدی اینستاگرام"
+                    onChange={(e) => setSocial_ig(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+            {/*  */}
             <div className="button-new">
               <Button
                 type="submit"

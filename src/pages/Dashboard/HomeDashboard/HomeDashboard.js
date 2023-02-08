@@ -67,17 +67,17 @@ const HomeDashboard = ({ setCardrun, cardrun }) => {
             {/* option  */}
             {/* <Navbar /> */}
             <div className="widgets row">
-              <Col md={6} lg={3}>
+              <Col md={6} lg={3} className="fix-col-md-6">
                 <Widgets type="user" />
               </Col>
-              <Col md={6} lg={3}>
+              <Col md={6} lg={3} className="fix-col-md-6">
                 {" "}
                 <Widgets type="order" />
               </Col>
-              <Col md={6} lg={3}>
+              <Col md={6} lg={3} className="fix-col-md-6">
                 <Widgets type="erarning" />
               </Col>
-              <Col md={6} lg={3}>
+              <Col md={6} lg={3} className="fix-col-md-6">
                 {" "}
                 <Widgets type="balance" />
               </Col>
