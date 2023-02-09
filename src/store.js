@@ -9,6 +9,7 @@ import {
 import {
   detailCreateReducer,
   detailGetReducer,
+  detailUpdateReducer,
 } from "./reducers/detailReducer";
 import {
   productCreateReducer,
@@ -31,6 +32,7 @@ const reducer = combineReducers({
   productGet: productGetReducer,
   detailcreate: detailCreateReducer,
   detailget: detailGetReducer,
+  detailupdate: detailUpdateReducer,
 });
 ////////////
 const userInformStorage = localStorage.getItem("userInfo")

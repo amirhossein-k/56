@@ -60,11 +60,17 @@ export default function App() {
               }
             />
             <Route path="products">
-              <Route index element={<List />} />
+              <Route
+                index
+                element={<List cardrun={cardrun} setCardrun={setCardrun} />}
+              />
               {/* <Route path=":productId" element={<Single />} /> */}
               <Route path="new" element={<New />} />
             </Route>
-            <Route path="detail" element={<Detail  cardrun={cardrun} setCardrun={setCardrun}  />} />
+            <Route
+              path="detail"
+              element={<Detail cardrun={cardrun} setCardrun={setCardrun} />}
+            />
           </Route>
         </Route>
         {/* /// */}

@@ -8,6 +8,7 @@ import Sidebar from "../../../components/Dashboard/sidebar/Sidebar";
 import {
   createDetailAction,
   getDetailAction,
+  updateDetailAction,
 } from "../../../actions/detailActions";
 import axios from "axios";
 ///////////////////////////
@@ -213,26 +214,33 @@ const Detail = ({ setCardrun, cardrun }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (!header_img || !slider_img) return;
     if (dataget === true) {
-      // dispatch(
-      //   updateDetailAction(
-      //     header_img,
-      //     profile_img,
-      //     title,
-      //     subtitle,
-      //     slider_img,
-      //     times_1,
-      //     times_2,
-      //     times_3,
-      //     social_phone,
-      //     social_address,
-      //     social_ig
-      //   )
-      //////////ned write this action
-      // );
-      // resetHandler();
+      var details = JSON.parse(localStorage.getItem("DetailGet"));
+      for (const [key, value] of Object.entries(details)) {
+        if (key === "id") {
+          var id = value;
+        }
+      }
+      dispatch(
+        updateDetailAction(
+          header_img,
+          profile_img,
+          title,
+          subtitle,
+          slider_img,
+          times_1,
+          times_2,
+          times_3,
+          social_phone,
+          social_address,
+          social_ig,
+          id
+        )
+      );
+      resetHandler();
     } else {
+      if (!header_img || !slider_img) return;
+
       if (
         header_img === undefined ||
         header_img === null ||
@@ -262,8 +270,6 @@ const Detail = ({ setCardrun, cardrun }) => {
       }
     }
   };
-  // console.log(title, "title");
-  // console.log(datadetail, "dataaa");
 
   ////////////////////////
   return (

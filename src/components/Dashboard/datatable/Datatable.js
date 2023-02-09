@@ -34,7 +34,7 @@ import ModalImage from "react-modal-image";
 import { RiCloseLine } from "react-icons/ri";
 //.......................................................
 
-const Datatable = ({ setDatas, datas }) => {
+const Datatable = ({ setDatas, datas, cardrun, setCardrun }) => {
   const deleteUser = React.useCallback(
     (id) => () => {
       setTimeout(() => {
@@ -200,19 +200,36 @@ const Datatable = ({ setDatas, datas }) => {
   );
   // ...................
   useEffect(() => {
-    dispatch(listProductAction());
-    if (product) {
-      console.log("amad");
-      setPer(product);
-    }
-  }, [dispatch, successDelete]);
+    console.log(cardrun, "datatable");
+    // setCardrun(false);
+  }, []);
+  //
+  // useEffect(() => {
+  //   dispatch(listProductAction());
+  //   setCardrun(true);
+  //   if (product) {
+  //     console.log("amad");
+  //     setPer(product);
+  //   }
+  // }, [dispatch, successDelete]);
+  //
+
+  // useEffect(() => {
+  //   if (cardrun === true) {
+  //     dispatch(listProductAction());
+  //     setCardrun(false);
+  //     if (product) {
+  //       console.log("amad");
+  //       setPer(product);
+  //     }
+  //   }
+  // }, [cardrun]);
+  //
   useEffect(() => {
     dispatch(listProductAction());
     setIsOpens(false);
   }, [update]);
-  // useEffect(() => {
-  //   console.log(openpic);
-  // }, [openpic]);
+
   return (
     <>
       <Box sx={{ height: 400, width: "100%" }}>
