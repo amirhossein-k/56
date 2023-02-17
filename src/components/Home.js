@@ -11,15 +11,31 @@ import { listProductAction } from "../actions/productActions";
 ///////////
 const Home = ({ userInfo, Cards, cardrun, setCardrun }) => {
   const dispatch = useDispatch();
+  const [datail, setDetail] = useState([]);
 
-  // const productList = useSelector((state) => state.productList);
-  // const { product, loading } = productList;
-  // useEffect(() => {}, [product, loading]);
+  useEffect(() => {
+    const fetching = async () => {
+      const { data } = await axios.get(
+        "https://backend-site-asll.vercel.app/api/detail"
+      );
+      setDetail(data);
+    };
+    fetching();
+  }, []);
+
+  useEffect(() => {
+    console.log(typeof datail, "too");
+    for (const [key, value] of Object.entires(datail)) {
+      // console.log(typeof key,'keyy')
+      // switch(key){
+      // }
+    }
+  }, [datail]);
 
   return (
     // <>
     <Container fluid className="gx-0">
-      <Header userInfo={userInfo} />
+      <Header userInfo={userInfo} datail={datail} setDetail={setDetail} />
       <Row>
         <Swipper />
       </Row>
