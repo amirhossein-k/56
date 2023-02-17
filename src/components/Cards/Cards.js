@@ -47,9 +47,11 @@ const Cards = ({ cardrun, setCardrun, Search }) => {
           searchResult={searchResult}
           setSearchResult={setSearchResult}
           searchInput={searchInput}
+          product={product}
         />
       </Row>
       {loading && <h1>درحال خواندن دیتا هستیم منتظر بمانید</h1>}
+
       {product &&
         product.map((item) => {
           return (
