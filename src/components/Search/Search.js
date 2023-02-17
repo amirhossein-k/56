@@ -3,7 +3,12 @@ import { Container, Col } from "react-bootstrap";
 import InputModule from "../Input/Input";
 import "../../styles/Search.css";
 
-const Search = () => {
+const Search = ({
+  setSearchInput,
+  searchResult,
+  setSearchResult,
+  searchInput,
+}) => {
   return (
     <>
       <Col xl={2} md={4} sm={6} className="justify coll">

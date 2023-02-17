@@ -7,7 +7,7 @@ import "../../styles/Swipper.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-const Swipper = () => {
+const Swipper = ({ slider_img, datail }) => {
   const swiperNavPrevRef = useRef(null);
   const swiperNavNextRef = useRef(null);
 
@@ -33,20 +33,22 @@ const Swipper = () => {
           swiper.navigation.update();
         }}
       >
-        <SwiperSlide className="swiperslide">
+        {/* <SwiperSlide className="swiperslide">
           <img
             className="image"
             src="https://res.cloudinary.com/dijamrzud/image/upload/v1675877425/1967_charge_cars_ford_mustang_4k_2-1600x900_zm8lvn.jpg"
             alt=""
           />
-        </SwiperSlide>
-        <SwiperSlide className="swiperslide">
-          <img
-            className="image"
-            src="https://res.cloudinary.com/dijamrzud/image/upload/v1675877430/ford_mustang_california_special_2022_5k_4-1600x900_tfyqvt.jpg"
-            alt=""
-          />
-        </SwiperSlide>
+        </SwiperSlide> */}
+
+        {datail &&
+          slider_img.map((item, index) => {
+            return (
+              <SwiperSlide className="swiperslide" key={index}>
+                <img className="image" src={item} alt="slider-img" />
+              </SwiperSlide>
+            );
+          })}
 
         <div className="swiperNavPrev" ref={swiperNavPrevRef}></div>
         <div className="swiperNavNext" ref={swiperNavNextRef}></div>
