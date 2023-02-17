@@ -3,7 +3,15 @@ import { Card, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { logoutAction } from "../../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
-const Header = ({ userInfo }) => {
+const Header = ({
+  userInfo,
+  datail,
+  setDetail,
+  title,
+  subtitle,
+  header_img,
+  profile_img,
+}) => {
   const dispatch = useDispatch();
   const [metr, setMetr] = useState("");
   window.onscroll = function () {
@@ -37,6 +45,9 @@ const Header = ({ userInfo }) => {
         id="head"
         className="parallax d-flex align-items-center justify-content-center"
         parallax-speed="2"
+        style={{
+          background: `#f4f4f4 url(${datail && header_img})`,
+        }}
       >
         <h1
           id="logo"
@@ -44,16 +55,18 @@ const Header = ({ userInfo }) => {
         >
           <img
             className="img-circle "
-            src="https://res.cloudinary.com/dijamrzud/image/upload/v1675870663/download_zcmjg2.jpg"
+            // src="https://res.cloudinary.com/dijamrzud/image/upload/v1675870663/download_zcmjg2.jpg"
+            src={datail && profile_img}
             alt=""
           />
           <div className="back-fade">
             {" "}
-            <span className="title">Amir Gallery</span>
+            <span className="title">{datail && title}</span>
           </div>
           <div className="back-fade my-2" style={{ background: "#adb5bd57" }}>
             <span className="tagline">
-              A mystery person
+              {/* A mystery person */}
+              {datail && subtitle}
               <a href="">anthony.russel42@example.com</a>
             </span>
           </div>

@@ -5,7 +5,7 @@ import React, {
   useRef,
   useMemo,
 } from "react";
-import { Card } from "react-bootstrap";
+import { Col, Row, Card } from "react-bootstrap";
 import "../../styles/Cards.css";
 // import { Cars } from "../../untils/Cars";
 import cash_logo from "../../public/cash.svg";
@@ -16,12 +16,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProductAction } from "../../actions/productActions";
 import { useNavigate, generatePath, Link } from "react-router-dom";
 
-const Cards = ({ cardrun, setCardrun }) => {
+const Cards = ({ cardrun, setCardrun, Search }) => {
   const dispatch = useDispatch();
   const [Id, setId] = useState(null);
   const productList = useSelector((state) => state.productList);
   const { product, loading } = productList;
-
+  ///
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  ////
   useEffect(() => {
     setCardrun(true);
   }, []);
@@ -38,7 +41,17 @@ const Cards = ({ cardrun, setCardrun }) => {
   console.log(product, "product");
   return (
     <>
+      <Row className="justify-content-start align-items-center g-2 p-3 shadow mt-2 mb-2 gx-0">
+        <Search
+          setSearchInput={setSearchInput}
+          searchResult={searchResult}
+          setSearchResult={setSearchResult}
+          searchInput={searchInput}
+          product={product}
+        />
+      </Row>
       {loading && <h1>درحال خواندن دیتا هستیم منتظر بمانید</h1>}
+
       {product &&
         product.map((item) => {
           return (
